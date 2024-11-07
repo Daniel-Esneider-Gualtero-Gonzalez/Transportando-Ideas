@@ -486,7 +486,8 @@ import Layout from "../layouts/Layout.astro";
             }
         }
 
-        async function inicializarDestinos() {
+        async function inicializarSteps() {
+            disabledElement(btnPrevStep,true)
             handleLoadingDepartmentSelects();
             try {
                 const getDepartments = await fetch(
@@ -506,7 +507,7 @@ import Layout from "../layouts/Layout.astro";
             } catch (error) {}
             handleLoadingDepartmentSelects(true);
         }
-        inicializarDestinos();
+        inicializarSteps();
         // END STEP ORIGIN DESTINY
 
         // STEP DATE TRAVEL
@@ -656,10 +657,13 @@ import Layout from "../layouts/Layout.astro";
         function logiSteps(stepCurrent) {
             switch (stepCurrent) {
                 case 0:
-                    disabledElement(btnNextStep, false);
+                    disabledElement(btnPrevStep, true);
 
                     break;
-                case 1: // step date travel
+                    case 1: 
+                    disabledElement(btnPrevStep,false)
+                    break;
+                case 2: // step date travel
                     if (isErrorDateTravel) {
                         disabledElement(btnNextStep, true);
                     } else {
