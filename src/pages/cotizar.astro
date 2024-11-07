@@ -1,0 +1,830 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Cotizar">
+    <style is:global>
+        #seccion-cotizar {
+            height: 100dvh;
+
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        #seccion-cotizar h1 {
+            font-size: 2rem;
+        }
+
+        #seccion-cotizar #step-origen-destino select {
+            width: 100%;
+            padding: 4px;
+            border-radius: 5px;
+        }
+
+        /* stylos para progress bar */
+        #seccion-cotizar .container-progress-bar {
+            position: relative;
+            background-color: rgb(236, 229, 229);
+            border-radius: 5px;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        #seccion-cotizar .container-progress-bar svg {
+            background-color: white;
+            border-radius: 100%;
+            position: absolute;
+            right: -1px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            transition: all 1.5s ease-in-out;
+            z-index: 2;
+        }
+
+        #seccion-cotizar .container-progress-bar .number-step {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            color: white;
+            border-radius: 100%;
+            inset: 0;
+            margin: auto 0;
+            font-size: 1.3rem;
+            font-weight: 400;
+            background-color: blue;
+        }
+        @media (max-width: 390px) {
+            #seccion-cotizar .container-progress-bar .number-step {
+            }
+        }
+
+        #seccion-cotizar .progress-bar {
+            position: relative;
+            display: flex;
+            justify-content: end;
+            background-color: blue;
+            height: 5px;
+            width: 0%;
+            border-radius: 5px;
+            transition: all 800ms ease-in-out;
+        }
+
+        #seccion-cotizar .container-control-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+        }
+
+        #seccion-cotizar .container-control-buttons button {
+            width: 100%;
+            background-color: blue;
+            padding: 0.5rem;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        #seccion-cotizar .container-control-buttons button:disabled {
+            background-color: rgb(103, 103, 188);
+        }
+
+        #cotizar-form {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #cotizar-form .step {
+            transition: all 800ms linear;
+            width: 100%;
+        }
+        #cotizar-form .step * {
+            margin-top: 17px;
+            margin-bottom: 17px;
+        }
+
+        #cotizar-form > *:not(:first-child) {
+            display: none;
+        }
+
+        /* stylos para span de errores */
+        #cotizar-form .error {
+            background-color: red;
+            color: white;
+            width: fit-content;
+            margin: auto;
+
+            border-radius: 5px;
+        }
+
+        /* STYLOS step-origen-destino */
+
+        #step-origen-destino {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.4rem;
+            position: relative;
+        }
+
+        #step-origen-destino label {
+            width: 48%;
+        }
+
+        /* stylos para step de fecha de viaje */
+        #step-date-travel h2 {
+            width: fit-content;
+            margin: auto;
+        }
+
+        #step-date-travel input {
+            width: 80%;
+            margin: auto;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        /* stylos para lista de articulos a transportar */
+        #step-article-list h2 {
+            /* width: fit-content; */
+            margin-left: 10%;
+        }
+
+        #article-list {
+            visibility: hidden;
+            width: 80%;
+            gap: 1rem;
+            margin: auto;
+            text-align: center;
+        }
+        #article-list th,
+        td {
+            padding: 6px 4px;
+        }
+
+        #article-list tbody tr:hover {
+            background-color: rgb(234, 237, 241);
+            border-radius: 5px;
+        }
+
+        #article-list button {
+            width: fit-content;
+            margin: auto;
+            background-color: red;
+            color: white;
+        }
+
+        #step-article-list div {
+            display: flex;
+            gap: 0.5rem;
+        }
+        #step-article-list #control-list-articles {
+            width: 80%;
+            margin: auto;
+        }
+
+        #step-article-list #control-list-articles input,
+        button {
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #step-article-list #input-cant-article {
+            width: 5%;
+        }
+
+        #step-article-list #input-article {
+            width: 75%;
+        }
+
+        #step-article-list #control-list-articles button {
+            width: 20%;
+            background-color: #4bb543;
+            font: bold;
+        }
+
+        /* stylos para seleccionar servicios */
+        #step-select-services h2 {
+        }
+
+        #step-select-services .container-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.8rem;
+        }
+
+        #step-select-services .container-services label {
+            display: flex;
+            gap: 0.5rem;
+            width: 100%;
+            height: fit-content;
+        }
+    </style>
+    <section id="seccion-cotizar" class="">
+        <h1>Completa todos los pasos para realizar tu cotizacion!!</h1>
+        <div id="container-progress-bar" class="container-progress-bar">
+            <div id="progress-bar" class="progress-bar">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-truck"
+                >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path
+                        d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5"
+                    ></path>
+                </svg>
+            </div>
+        </div>
+
+        <form id="cotizar-form" class="">
+            <div id="step-origen-destino" class="step">
+                <label>
+                    Departamento Origen
+                    <select
+                        class="border loading-select"
+                        name="ciudad-origen"
+                        id="departamento-origen"
+                    >
+                    </select>
+                </label>
+                <label>
+                    Ciudad Origen
+                    <select
+                        class="border"
+                        name="ciudad-origen"
+                        id="ciudad-origen"
+                    >
+                    </select>
+                </label>
+            </div>
+
+            <div class="step" id="step-origen-destino">
+                <label>
+                    Departamento Destino
+                    <select
+                        class="border"
+                        name="departamento-destino"
+                        id="departamento-destino"
+                    >
+                    </select>
+                </label>
+                <label>
+                    Ciudad Destino
+                    <select
+                        class="border"
+                        name="ciudad-destino"
+                        id="ciudad-destino"
+                    >
+                    </select>
+                </label>
+            </div>
+
+            <div id="step-date-travel" class="step flex-col">
+                <h2>Fecha del evento</h2>
+                <span id="error-date-travel" class="error"></span>
+                <input type="date" id="date-travel" class="border" />
+            </div>
+
+            <div id="step-article-list" class="step flex-col">
+                <h2>Agregue los articulos a transportar</h2>
+                <table
+                    id="article-list"
+                    class="w-full text-sm text-left rtl:text-right"
+                >
+                    <thead
+                        class="text-xs uppercase bg-gray-50 dark:bg-gray-700"
+                    >
+                        <th>cant</th>
+                        <th>Nombre articulo</th>
+                        <th>Accion</th>
+                    </thead>
+                    <tbody> </tbody>
+                </table>
+                <span id="error-input-article" class="error"></span>
+                <div id="control-list-articles" class="flex justify-center">
+                    <input
+                        id="input-cant-article"
+                        value="1"
+                        class="border w-fit"
+                        type="number"
+                    />
+                    <input
+                        id="input-article"
+                        class="border"
+                        type="text"
+                        placeholder="ej:Nevera"
+                    />
+                    <button id="btn-add-article" type="button" class="w-fit btn"
+                        >Agregar</button
+                    >
+                </div>
+            </div>
+
+            <div id="step-select-services" class="step flex-col">
+                <h2>selecciona tus servicios</h2>
+                <div id="container-services" class="container-services">
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="Personal de cargue y descargue"
+                        />
+                        Personal de cargue y descargue
+                    </label>
+                    <label>
+                        <input type="checkbox" name="Desarme y arme" />
+                        Desarme y Arme
+                    </label>
+                </div>
+            </div>
+
+            <div class="step">
+                Final step pedir que seleccione por donde quiere enviar la
+                cotizacion
+            </div>
+        </form>
+
+        <div class="container-control-buttons">
+            <button id="btn-prev-step" class="">anterior</button>
+            <button id="btn-next-step" type="button" class="">siguiente</button>
+        </div>
+    </section>
+
+    <script>
+        // Control Form
+        const formCotizar = document.getElementById("cotizar-form");
+        const btnPrevStep = document.getElementById("btn-prev-step");
+        const btnNextStep = document.getElementById("btn-next-step");
+        const totalSteps = formCotizar.children.length;
+        // comienza en 0 ya qiue vamos a trabajar con array
+        let indexCurrentStep = 0;
+
+        // progress bar
+        const containerProgressBar = document.getElementById(
+            "container-progress-bar",
+        );
+        const progressBar = document.getElementById("progress-bar");
+
+        const porcentStep = 100 / (totalSteps - 1);
+        for (let step = 1; step < totalSteps; step++) {
+            let leftStepText = porcentStep * step;
+            const spanStepText = document.createElement("span");
+            spanStepText.textContent = `${step}`;
+            spanStepText.style.left = `calc(${leftStepText}% - 26px)`; // le restamos el radio del ancho y alto del  span
+            spanStepText.classList.add("number-step");
+            containerProgressBar.appendChild(spanStepText);
+        }
+        // fin progress bar
+
+        // STEP ORIGIN -  DESTINY
+        const selectDepartamentoOrigen = document.getElementById(
+            "departamento-origen",
+        );
+        const selectCiudadOrigen = document.getElementById("ciudad-origen");
+
+        const selectDepartamentoDestino = document.getElementById(
+            "departamento-destino",
+        );
+        const selectCiudadDestino = document.getElementById("ciudad-destino");
+
+        function handleLoadingDepartmentSelects(hidden = false) {
+            if (hidden) {
+                const loadingOptions =
+                    document.querySelectorAll("#loading-option");
+                for (let i = 0; i < loadingOptions.length; i++) {
+                    const element = loadingOptions[i];
+                    element.remove();
+                }
+                selectDepartamentoOrigen.removeAttribute("disabled");
+                selectDepartamentoDestino.removeAttribute("disabled");
+                return;
+            }
+            selectDepartamentoOrigen.setAttribute("disabled", "disabled");
+            selectDepartamentoDestino.setAttribute("disabled", "disabled");
+
+            const optionOrigin = document.createElement("option");
+            optionOrigin.id = "loading-option";
+            optionOrigin.textContent = "cargando...";
+            selectDepartamentoOrigen.appendChild(optionOrigin);
+            selectDepartamentoDestino.appendChild(optionOrigin.cloneNode(true));
+            selectCiudadOrigen.appendChild(optionOrigin.cloneNode(true));
+            selectCiudadDestino.appendChild(optionOrigin.cloneNode(true));
+        }
+        async function handleChangeDepartment(event: Event) {
+            const target = event.target as HTMLSelectElement;
+            const idDepartment = target.value;
+            const result = await getCities(Number(idDepartment));
+            if (result.error) return;
+            //    renderizar en el select adecuado si es de origen o destino
+            if (target.id === "departamento-origen") {
+                cleanOptions(selectCiudadOrigen)
+                renderCities(selectCiudadOrigen, result.data);
+            } else {
+                cleanOptions(selectCiudadDestino)
+                renderCities(selectCiudadDestino, result.data);
+            }
+        }
+        selectDepartamentoOrigen.addEventListener(
+            "change",
+            handleChangeDepartment,
+        );
+        selectDepartamentoDestino.addEventListener(
+            "change",
+            handleChangeDepartment,
+        );
+
+        function renderDestinos(listDestinos) {
+            for (let i = 0; i < listDestinos.length; i++) {
+                const destini = listDestinos[i];
+                const option = document.createElement("option");
+
+                option.value = destini.id;
+                option.textContent = destini.name;
+                selectDepartamentoOrigen.appendChild(option);
+                // clonamos el option ya que no nos permite meter una instancia del option en dos selects
+                const optionClone = option.cloneNode(true);
+                selectDepartamentoDestino.appendChild(optionClone);
+            }
+        }
+        function cleanOptions(selectElement) {
+            while (selectElement.options.length > 0) {
+                selectElement.remove(0);
+            }
+        }
+        function renderCities(element, listCities) {
+            for (let i = 0; i < listCities.length; i++) {
+                const city = listCities[i];
+                const option = document.createElement("option");
+                option.value = city.name;
+                option.textContent = city.name;
+                element.appendChild(option);
+            }
+        }
+        async function getCities(idDepartment) {
+            try {
+                const getCities = await fetch(
+                    `https://api-colombia.com/api/v1/Department/${idDepartment}/cities`,
+                    { mode: "cors" },
+                );
+                const cities = await getCities.json();
+
+                return { data: cities };
+            } catch (error) {
+                console.log("error al obtener cities", error);
+                return { error: "no se pudieron obtener las ciudades" };
+            }
+        }
+
+        async function inicializarDestinos() {
+            handleLoadingDepartmentSelects();
+            try {
+                const getDepartments = await fetch(
+                    "https://api-colombia.com/api/v1/Department",
+                    { mode: "cors" },
+                );
+                const departments = await getDepartments.json();
+                const ferstCitiesDepartment = departments[0];
+                renderDestinos(departments);
+                const initialCities = await getCities(
+                    Number(ferstCitiesDepartment.id),
+                );
+                if (initialCities.error) return;
+
+                renderCities(selectCiudadOrigen, initialCities.data);
+                renderCities(selectCiudadDestino, initialCities.data);
+            } catch (error) {}
+            handleLoadingDepartmentSelects(true);
+        }
+        inicializarDestinos();
+        // END STEP ORIGIN DESTINY
+
+        // STEP DATE TRAVEL
+        let isErrorDateTravel = false;
+
+        const dateTravel = document.getElementById("date-travel");
+        const errorDateTravel = document.getElementById("error-date-travel");
+        const currentDate = new Date();
+        dateTravel.min = currentDate.toISOString().split("T")[0];
+        dateTravel.value = currentDate.toISOString().split("T")[0];
+
+        // END STEP DATE  TRAVEL
+
+        // STEP ARTICLES LIST
+        const articleList = document.getElementById("article-list");
+        const inputCantArticle = document.getElementById("input-cant-article");
+        const inputArticle = document.getElementById("input-article");
+        const inputArticleMessagge = document.getElementById(
+            "error-input-article",
+        );
+        const btnAddArticle = document.getElementById("btn-add-article");
+        let listArticles = [];
+        // funcion para verificar si hay articulos mostrar la tabla si no no
+        function showArticles(tableArticles) {
+            if (listArticles.length > 0) {
+                tableArticles.style.visibility = "visible";
+            } else {
+                tableArticles.style.visibility = "hidden";
+            }
+        }
+
+        // Step List Serices
+        const containerServices = document.getElementById("container-services");
+        let listServices = [];
+        let countListener = 0; // contador de listener ya que se ejecuta dos veces por click y solo necesitamos una
+
+        // logig next step
+
+        btnNextStep.addEventListener("click", () => {
+            // comprobar si hay siguiente step
+            if (indexCurrentStep < totalSteps - 1 === false) return;
+
+            // desabilitamos el boton para evitar fallos en los stylos  para que no colapsen si se le da muchos clips
+            btnNextStep.setAttribute("disabled", "true");
+            btnNextStep.textContent = "cargando...";
+
+            const currentStep = formCotizar.children[indexCurrentStep];
+            const nexStep = formCotizar.children[indexCurrentStep + 1];
+
+            currentStep.addEventListener(
+                "transitionend",
+                () => {
+                    currentStep.style.display = "none";
+                    nexStep.style.display = "flex";
+                    nexStep.style.transform = "translate(0, 0)";
+
+                    // volvemos a habilitar el boton
+                    btnNextStep.removeAttribute("disabled");
+                    btnNextStep.textContent = "siguiente";
+
+                    indexCurrentStep++;
+                    logiSteps(indexCurrentStep);
+                    // sumar el width que ya tiene mas el nuevo
+                    const progressBarCurrentWidth = Number(
+                        progressBar.style.width.slice(0, -1),
+                    );
+                    const newWidth = progressBarCurrentWidth + porcentStep;
+                    progressBar.style.width = `${newWidth}%`;
+                },
+                { once: true },
+            );
+            // currentStep.style.display = "block"
+            currentStep.style.transform = "translate(-100% , 0)";
+        });
+
+        // logic  previus btn
+        btnPrevStep.addEventListener("click", () => {
+            // si el indexcurren step es mayor que 0 hacemos el previo step
+            if (indexCurrentStep > 0 === false) return;
+
+            // desabilitamos el boton para evitar fallos en los stylos  para que no colapsen si se le da muchos clips
+            disabledElement(btnPrevStep, true, "cargando...");
+
+            const previusStep = formCotizar.children[indexCurrentStep - 1];
+            const currentStep = formCotizar.children[indexCurrentStep];
+
+            currentStep.addEventListener(
+                "transitionend",
+                () => {
+                    currentStep.style.display = "none";
+                    previusStep.style.display = "flex";
+                    previusStep.style.transform = "translate(0,0)";
+                    // volvemos a habilitar el boton
+                    disabledElement(btnPrevStep, false, "Anterior");
+
+                    indexCurrentStep--;
+                    logiSteps(indexCurrentStep);
+                    const progressBarCurrentWidth = Number(
+                        progressBar.style.width.slice(0, -1),
+                    );
+                    const newWidth = progressBarCurrentWidth - porcentStep;
+                    // ya que nhay problemas en la resta del ultimo step
+                    if (indexCurrentStep === 0) {
+                        progressBar.style.width = `0%`;
+                        return;
+                    }
+                    progressBar.style.width = `${newWidth}%`;
+                },
+                { once: true },
+            );
+            // currentStep.style.display = "block"
+            currentStep.style.transform = "translate(100% , 0)";
+        });
+
+        // UTILIDADES
+        function showError(message = "", element) {
+            element.textContent = message;
+            let idTimeOutMessage = setTimeout(() => {
+                element.textContent = "";
+                clearTimeout(idTimeOutMessage);
+            }, 3000);
+        }
+        function disabledElement(element, action, messageTextContent = "") {
+            if (action === true) {
+                element.setAttribute("disabled", "true");
+                if (messageTextContent)
+                    element.textContent = messageTextContent;
+            } else {
+                element.removeAttribute("disabled");
+                if (messageTextContent)
+                    element.textContent = messageTextContent;
+            }
+        }
+
+        formCotizar.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const ciudadOrigen = formData.get("ciudad-origen");
+            const ciudadDestino = formData.get("ciudad-destino");
+            const peso = formData.get("peso");
+            const dimension = formData.get("dimension");
+            location.href = `https://web.whatsapp.com/send?phone=573157057663&text=Para cotizar ciudad de origen: ${ciudadOrigen}, ciudad destino: ${ciudadDestino}, Peso: ${peso}, Dimension : ${dimension}`;
+
+            console.log("ciudad de origen", ciudadOrigen);
+        });
+
+        function logiSteps(stepCurrent) {
+            switch (stepCurrent) {
+                case 0:
+                    disabledElement(btnNextStep, false);
+
+                    break;
+                case 1: // step date travel
+                    if (isErrorDateTravel) {
+                        disabledElement(btnNextStep, true);
+                    } else {
+                        disabledElement(btnNextStep, false);
+                    }
+
+                    dateTravel.removeEventListener("change", handleDateTravel);
+                    dateTravel.addEventListener("change", handleDateTravel);
+                    function handleDateTravel(event) {
+                        const inputDate = event.target.value;
+                        if (
+                            inputDate < currentDate.toISOString().split("T")[0]
+                        ) {
+                            isErrorDateTravel = true;
+                            errorDateTravel.textContent =
+                                "Ingrese una fecha valida";
+                            disabledElement(btnNextStep, true);
+                        } else {
+                            isErrorDateTravel = false;
+                            errorDateTravel.textContent = "";
+                            disabledElement(btnNextStep, false);
+                        }
+                    }
+
+                    break;
+
+                case 2:
+                    updateDisabledButtonsStepArticle();
+                    btnAddArticle.removeEventListener(
+                        "click",
+                        handleBtnAddArticle,
+                    );
+                    btnAddArticle.addEventListener(
+                        "click",
+                        handleBtnAddArticle,
+                    );
+                    function handleBtnAddArticle(event) {
+                        event.preventDefault();
+                        const cantArticle = inputCantArticle.value;
+                        const article = inputArticle.value;
+                        if (!article) {
+                            showError(
+                                "Por favor agregue un articulo",
+                                inputArticleMessagge,
+                            );
+                            return;
+                        }
+                        const idArticle = crypto.randomUUID();
+                        const objetArticle = {
+                            id: idArticle,
+                            article: article,
+                        };
+                        const trElement = document.createElement("tr");
+                        for (let i = 1; i <= 3; i++) {
+                            const tdElement = document.createElement("td");
+
+                            // el primer td es cantidad del articulo. 2 nombre. tercero accion
+                            if (i == 1) {
+                                tdElement.textContent = inputCantArticle.value;
+                                trElement.appendChild(tdElement);
+                                continue;
+                            }
+                            if (i == 2) {
+                                tdElement.textContent = inputArticle.value;
+                                trElement.appendChild(tdElement);
+                                continue;
+                            }
+                            // acciones
+                            const btnDeleteArticle =
+                                document.createElement("button");
+                            btnDeleteArticle.textContent = "Eliminar";
+                            btnDeleteArticle.addEventListener(
+                                "click",
+                                (event) => {
+                                    event.preventDefault();
+                                    event.target.parentNode.parentNode.remove();
+                                    listArticles = listArticles.filter(
+                                        (article) => article.id !== idArticle,
+                                    );
+                                    showArticles(articleList);
+                                    updateDisabledButtonsStepArticle();
+                                },
+                                { once: true },
+                            );
+
+                            tdElement.appendChild(btnDeleteArticle);
+                            trElement.appendChild(tdElement);
+                        }
+
+                        articleList
+                            .querySelector("tbody")
+                            .appendChild(trElement);
+
+                        // limpiamos el input del article
+                        inputArticle.value = "";
+                        // agregamos el nuevo article al aray de articles
+                        listArticles.push(objetArticle);
+                        showArticles(articleList);
+                        updateDisabledButtonsStepArticle();
+                    }
+
+                    break;
+
+                case 3: //step services
+                    containerServices.removeEventListener(
+                        "click",
+                        handleContainerServices,
+                    );
+                    containerServices.addEventListener(
+                        "click",
+                        handleContainerServices,
+                    );
+                    function handleContainerServices(event) {
+                        let newService = null;
+                        // sacamos el servicio ya sea del label o del input que esta dentro
+                        if (event.target.tagName.toLowerCase() === "input") {
+                            newService = event.target.name;
+                        } else if (
+                            event.target.tagName.toLowerCase() === "label"
+                        ) {
+                            //evitamos que le propague el evento al input que esta adentro o si no se ejecuta dos veces
+
+                            newService =
+                                event.target.querySelector("input").name;
+                        } else {
+                            return;
+                        }
+
+                        countListener++;
+                        if (countListener === 2) {
+                            countListener = 0;
+                            return;
+                        }
+
+                        if (listServices.includes(newService)) {
+                            listServices = listServices.filter(
+                                (service) => service !== newService,
+                            );
+                        } else {
+                            listServices.push(newService);
+                        }
+                        console.log("services", listServices);
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        function updateDisabledButtonsStepArticle() {
+            if (listArticles.length < 1) {
+                disabledElement(btnNextStep, true);
+            } else {
+                disabledElement(btnNextStep, false);
+            }
+        }
+
+        function updateDisabledButtonsStepServices() {
+            if (listServices.length < 1) {
+                disabledElement(btnNextStep, true);
+            } else {
+                disabledElement(btnNextStep, false);
+            }
+        }
+    </script>
+</Layout>

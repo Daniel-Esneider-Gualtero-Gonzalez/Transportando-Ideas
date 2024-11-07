@@ -1,0 +1,120 @@
+---
+interface Props {
+  id:string;
+	title: string;
+	
+}
+
+const { id,title } = Astro.props;
+---
+<style>
+  .button-animation {
+    /* display: flex; */
+    /* justify-content: start; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: blue;
+    justify-content: center;
+    
+    color: white;
+
+    width: 250px;
+    height: 50px;
+    /*  */
+    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+    
+    font-size: 20px;
+    overflow: hidden;
+
+  }
+  /* .button-animation::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: 6;
+    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+    background-color: red;
+  } */
+
+  .messagge {
+    
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    
+    inset: 0;
+    margin: auto;
+    z-index: 2;
+    
+  }
+
+  .button-animation svg {
+ position: absolute;
+    width: calc(76%);
+    height: calc(85%);
+    opacity: 0;
+  }
+
+  .div-fill-mode {
+    position: absolute;
+    
+    width: 0%;
+    height: 100%;
+    left: 0;
+    margin-top: -1px;
+    background-color: black;
+
+  }
+
+  .button-animation:hover svg {
+    animation: moveTruck 2s linear infinite;
+  }
+
+  .button-animation:hover .div-fill-mode {
+    animation: fillMode 1.7s 0.3ms both;
+  }
+
+
+  @keyframes fillMode {
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes moveTruck {
+    0% {
+      opacity: 1;
+      transform: translateX(-30%);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(300%);
+    }
+
+  }
+</style>
+
+<button id={id}  class=" button-animation">
+  <svg class="icon-truck-animation-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="icon icon-tabler icons-tabler-outline icon-tabler-truck">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    <path d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+  </svg>
+  <span class="messagge">
+    {title ? title : "button-title"}
+  </span>
+  
+  <div class="div-fill-mode"></div>
+
+</button>

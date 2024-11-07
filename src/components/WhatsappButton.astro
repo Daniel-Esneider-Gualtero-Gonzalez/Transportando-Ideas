@@ -1,0 +1,58 @@
+<style>
+    .whatsapp-Button{
+        position: fixed;
+        left: 5px;
+        bottom: 10px;
+        z-index: 99999999;
+        color: white;
+        transition: transform 300ms linear;
+    }
+    .whatsapp-Button::before{
+        content: "";
+        height: 100%;
+        width: 100%;
+        background-color: green;
+        position: absolute;
+        z-index: -1;
+        border-radius: 100%;
+
+
+    }
+    /* message  */
+    .whatsapp-Button:hover::after{
+        content: "Iniciar Conversacion en whatsapp";
+        height: fit-content;
+        width: 200px;
+       padding: 6px 4px;
+        border-radius: 5px;
+        background-color: green;
+        position: absolute;
+        z-index: -1;
+        top: -100%;
+        left: 100%;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 21% 95%, 16% 100%, 11% 95%, 0 95%);
+    }
+    .whatsapp-Button:hover{
+        transform: scale(1.1);
+    }
+   
+</style>
+
+<a id="whatsapp-Button" href="https://wa.me/3157057663" target="_blank" class="whatsapp-Button  absolute  bottom-5">
+    <svg xmlns="http://www.w3.org/2000/svg" class=" w-[60px] sm:w-[80px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+        <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+    </svg>
+</a>
+<!-- <a class="no_deco" target="_blank"
+    href="https://web.whatsapp.com/send?phone=573176936256&amp;text=Quiero%20informacion%20para%20una%20mudanza%20">
+
+
+</a> -->
+
+<script>
+
+</script>

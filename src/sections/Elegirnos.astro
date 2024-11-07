@@ -1,0 +1,106 @@
+<style>
+    #elegirnos * {
+        transition: all 400ms linear;
+    }
+
+    #elegirnos .line {
+        width: 1px;
+        height: 15px;
+    }
+
+    #question-elegirnos:hover {
+        background-color: blue;
+        color: white;
+    }
+    @media (max-width:640px) {
+        #elegirnos #container-concepts .line{
+            margin:0px 20px;
+           
+        }
+        #elegirnos #container-concepts .title-why{
+            margin: 0;
+        }
+    }
+</style>
+
+
+<section id="elegirnos" class=" flex flex-col">
+    <div id="question-elegirnos" class="w-fit h-fit mx-auto p-2   rounded  ">
+        <h2>¿Porque elegirnos?</h2>
+    </div>
+    <span class="line  border mx-auto"></span>
+    <hr class="line-div-concepts">
+    <div id="container-concepts" class="sm:flex gap-2">
+
+        <div class="flex flex-col">
+            <span class="line  border mx-auto"></span>
+            <span class="mx-auto title-why ">Precios</span>
+            <span class="line  border mx-auto"></span>
+            <p class="p-1 border rounded">Reprehenderit, cumque temporibus! Veritatis cupiditate minima nam facilis
+                iusto in reprehenderit harum fugit temporibus voluptas dolorum itaque voluptatem enim, doloremque
+                eligendi amet?</p>
+
+        </div>
+
+        <div class="flex flex-col">
+            <span class="line  border mx-auto"></span>
+            <span class="mx-auto title-why  ">Cotizáciones</span>
+            <span class="line  border mx-auto"></span>
+            <p class="p-1 border rounded">Reprehenderit, cumque temporibus! Veritatis cupiditate minima nam facilis
+                iusto in reprehenderit harum fugit temporibus voluptas dolorum itaque voluptatem enim, doloremque
+                eligendi amet?</p>
+
+        </div>
+
+        <div class="flex flex-col">
+            <span class="line   border mx-auto"></span>
+            <span class="mx-auto title-why  ">Calidad</span>
+            <span class="line border mx-auto"></span>
+            <p class="p-1 border rounded">Reprehenderit, cumque temporibus! Veritatis cupiditate minima nam facilis
+                iusto in reprehenderit harum fugit temporibus voluptas dolorum itaque voluptatem enim, doloremque
+                eligendi amet?</p>
+
+        </div>
+
+    </div>
+
+
+
+
+</section>
+
+<script>
+    const containerOpinion = document.getElementById("elegirnos")
+    const elementsToAnimate = [{ element: "div", isAll: false }]
+
+    function handleIntersectionObserver(entries, observer){
+        entries.forEach(entry => {
+            // Verificar si el elemento está intersectando (visible en la pantalla)
+            if (entry.isIntersecting) {
+                // elemento que interciono
+                const element = entry.target
+                element.style.backgroundColor = "blue"
+                element.style.color = "white"
+                observer.disconnect()
+            } 
+        });
+    }
+
+    elementsToAnimate.forEach(elementToAnimate => {
+        if (elementToAnimate.isAll) {
+            const elements = containerOpinion.querySelectorAll(elementToAnimate.element)
+            console.log("all element to animate",elements)
+            elements.forEach(element=>{
+                const observer = new IntersectionObserver(handleIntersectionObserver)
+                observer.observe(element)
+            })
+        } else {
+            const element = containerOpinion.querySelector(elementToAnimate.element)
+            const observer = new IntersectionObserver(handleIntersectionObserver)
+                observer.observe(element)
+
+        }
+    })
+
+
+</script>

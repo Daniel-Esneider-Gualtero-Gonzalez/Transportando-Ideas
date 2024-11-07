@@ -1,4 +1,6 @@
 ---
+import Header from '../components/Header.astro';
+import WhatsappButton from "../components/WhatsappButton.astro"
 interface Props {
 	title: string;
 }
@@ -17,6 +19,8 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
+		<Header />
+		<WhatsappButton />
 		<slot />
 	</body>
 </html>
@@ -34,17 +38,79 @@ const { title } = Astro.props;
 	}
 	html {
 		font-family: system-ui, sans-serif;
-		background: #13151a;
+		
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+
+	
+body {
+    
+    
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    
+    /* margin-bottom: 20rem; */
+}
+@media (min-width:840px) {
+    body{
+        padding: 0 5rem;
+    }
+}
+body section {
+    margin-bottom: 5rem;
+}
+
+a[aria-current="page"] {
+    position: relative;
+    color: red;
+    /* Cambia esto al estilo deseado */
+    font-weight: bold;
+    
+}
+
+a[aria-current="page"]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: -110%;
+    /* Ajusta según tus necesidades */
+    width: 30px;
+        height: 25px;
+    background-color: red;
+    /* clip-path para la forma de la línea */
+    clip-path: polygon(100% 0, 0 0, 50% 100%);
+    
+}
+
+/* STYLOS DE CURRENT PAGE PARA MOBILE */
+@media (max-width:768px) {
+    a[aria-current="page"]::before {
+        content: '';
+        position: absolute;
+        right: -100px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0 auto;
+        
+        
+        
+        rotate: 90deg;
+        
+        /* Ajusta según tus necesidades */
+        width: 25px;
+        height: 25px;
+        background-color: red;
+        /* clip-path para la forma de la línea */
+        clip-path: polygon(100% 0, 0 0, 50% 100%);
+    }
+    
+}
+
+
+
+	
 </style>

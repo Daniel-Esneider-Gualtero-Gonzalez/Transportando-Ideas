@@ -1,0 +1,74 @@
+---
+import LinkButtonAnimation from "../components/LinkButtonAnimation.astro";
+---
+
+<section id="hero" class="flex flex-col gap-5 mx-auto justify-center">
+    <div class="relative">
+        <h1 class="">
+            <span>Transportando-Ideas</span> pioneros en transporte
+        </h1>
+    </div>
+
+    <p class="text-md max-w-[70%]">
+        <strong>Especializamos</strong>,  en ofrecer
+        soluciones de transporte rápidas y eficientes, conectando tus envíos a
+        cualquier destino. Cotiza con nosotros y descubre cómo podemos llevar
+        tus ideas más lejos.
+    </p>
+    <LinkButtonAnimation id="linkbutton-hero" title="Cotizar" />
+
+    <!-- button animation -->
+</section>
+
+<style>
+    #hero {
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: all 1s linear;
+    }
+
+    #hero h1 {
+        text-align: center;
+        font-size: 1.8rem;
+        width: 100%;
+    }
+
+    #hero h1 span {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: rgb(34, 14, 75);
+    }
+
+    #hero p {
+        width: 100%;
+    }
+
+    @media (min-width: 648px) {
+        #hero h1 {
+            font-size: 3.65rem;
+        }
+        #hero p {
+            width: 80%;
+        }
+    }
+</style>
+
+<script>
+    const buttonLink = document.getElementById("linkbutton-hero");
+    buttonLink.addEventListener("click", () => {
+        location.href = "/cotizar";
+    });
+    function handleIntersectionObserver(entries, observer) {
+        entries.forEach((entry) => {
+            // Verificar si el elemento está intersectando (visible en la pantalla)
+            if (!entry.isIntersecting) {
+                // elemento que interciono
+            }
+        });
+    }
+    const observer = new IntersectionObserver(handleIntersectionObserver);
+    observer.observe(buttonLink);
+</script>
