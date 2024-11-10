@@ -11,8 +11,61 @@ import Layout from "../layouts/Layout.astro";
             flex-direction: column;
             gap: 2rem;
         }
-        #seccion-cotizar h1 {
+        #seccion-cotizar .cotizar-title {
+            background-color: purple;
+            color: white;
+            position: relative;
             font-size: 2rem;
+            width: fit-content;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+        }
+        @media (max-width:480px) {
+            #seccion-cotizar .cotizar-title{
+                font-size: 0.8rem;
+                width: 80%;
+            }
+        }
+        @media (min-width:480px) {
+            #seccion-cotizar .cotizar-title{
+                font-size: 1rem;
+            }
+        }
+        @media (min-width:600px) {
+            #seccion-cotizar .cotizar-title{
+                font-size: 1.3rem;
+            }
+        }
+        @media (min-width:700px) {
+            #seccion-cotizar .cotizar-title{
+                font-size: 1.5rem;
+            }
+        }
+        #seccion-cotizar .cotizar-title::before {
+            position: absolute;
+            content: "";
+            left: -10%;
+            z-index: -1;
+            width: 14%;
+            height: 100%;
+            background-color: purple;
+            clip-path: polygon(0 0, 100% 1%, 100% 100%, 0 99%, 31% 50%);
+            margin-top: 10px;
+        }
+        #seccion-cotizar .cotizar-title::after {
+            position: absolute;
+            content: "";
+            bottom: 0;
+            top: 0;
+            right: -10%;
+            z-index: -1;
+            width: 14%;
+            height: 100%;
+            background-color: purple;
+            clip-path: polygon(0% 0%, 100% 0, 69% 50%, 100% 100%, 0% 100%);
+            margin-top: 10px;
         }
 
         #seccion-cotizar #step-origen-destino select {
@@ -223,7 +276,9 @@ import Layout from "../layouts/Layout.astro";
         }
     </style>
     <section id="seccion-cotizar" class="">
-        <h1>Completa todos los pasos para realizar tu cotizacion!!</h1>
+        <h1 class="cotizar-title">
+            Completa todos los pasos para realizar tu cotización!
+        </h1>
         <div id="container-progress-bar" class="container-progress-bar">
             <div id="progress-bar" class="progress-bar">
                 <svg
@@ -428,10 +483,10 @@ import Layout from "../layouts/Layout.astro";
             if (result.error) return;
             //    renderizar en el select adecuado si es de origen o destino
             if (target.id === "departamento-origen") {
-                cleanOptions(selectCiudadOrigen)
+                cleanOptions(selectCiudadOrigen);
                 renderCities(selectCiudadOrigen, result.data);
             } else {
-                cleanOptions(selectCiudadDestino)
+                cleanOptions(selectCiudadDestino);
                 renderCities(selectCiudadDestino, result.data);
             }
         }
@@ -487,7 +542,7 @@ import Layout from "../layouts/Layout.astro";
         }
 
         async function inicializarSteps() {
-            disabledElement(btnPrevStep,true)
+            disabledElement(btnPrevStep, true);
             handleLoadingDepartmentSelects();
             try {
                 const getDepartments = await fetch(
@@ -660,8 +715,8 @@ import Layout from "../layouts/Layout.astro";
                     disabledElement(btnPrevStep, true);
 
                     break;
-                    case 1: 
-                    disabledElement(btnPrevStep,false)
+                case 1:
+                    disabledElement(btnPrevStep, false);
                     break;
                 case 2: // step date travel
                     if (isErrorDateTravel) {
@@ -692,8 +747,14 @@ import Layout from "../layouts/Layout.astro";
 
                 case 3:
                     updateDisabledButtonsStepArticle();
-                    inputCantArticle.removeEventListener("input",handleChangeCantArticle)
-                    inputCantArticle.addEventListener("input",handleChangeCantArticle)
+                    inputCantArticle.removeEventListener(
+                        "input",
+                        handleChangeCantArticle,
+                    );
+                    inputCantArticle.addEventListener(
+                        "input",
+                        handleChangeCantArticle,
+                    );
                     btnAddArticle.removeEventListener(
                         "click",
                         handleBtnAddArticle,
@@ -703,25 +764,25 @@ import Layout from "../layouts/Layout.astro";
                         handleBtnAddArticle,
                     );
                     function handleChangeCantArticle(event) {
-                        const input = event.target.value
+                        const input = event.target.value;
                         if (isNaN(input)) {
-                            event.target.value = ""
-                            return
+                            event.target.value = "";
+                            return;
                         }
-                        if (input[0] <=0) { 
-                            event.target.value = ""
-                            return
+                        if (input[0] <= 0) {
+                            event.target.value = "";
+                            return;
                         }
-                        if(event.target.value.length > 1){
-                            event.target.value = input.substring(0,2)
-                            return
+                        if (event.target.value.length > 1) {
+                            event.target.value = input.substring(0, 2);
+                            return;
                         }
                     }
                     function handleBtnAddArticle(event) {
                         event.preventDefault();
                         const cantArticle = inputCantArticle.value;
                         const article = inputArticle.value;
-                        if(!cantArticle){
+                        if (!cantArticle) {
                             showError(
                                 "Por favor agregue una cantidad del articulo",
                                 inputArticleMessagge,
