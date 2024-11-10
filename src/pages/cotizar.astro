@@ -708,7 +708,11 @@ import Layout from "../layouts/Layout.astro";
                             event.target.value = ""
                             return
                         }
-                        if(event.target.value > 1){
+                        if (input[0] <=0) { 
+                            event.target.value = ""
+                            return
+                        }
+                        if(event.target.value.length > 1){
                             event.target.value = input.substring(0,2)
                             return
                         }
@@ -717,6 +721,13 @@ import Layout from "../layouts/Layout.astro";
                         event.preventDefault();
                         const cantArticle = inputCantArticle.value;
                         const article = inputArticle.value;
+                        if(!cantArticle){
+                            showError(
+                                "Por favor agregue una cantidad del articulo",
+                                inputArticleMessagge,
+                            );
+                            return;
+                        }
                         if (!article) {
                             showError(
                                 "Por favor agregue un articulo",
