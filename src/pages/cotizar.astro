@@ -690,8 +690,10 @@ import Layout from "../layouts/Layout.astro";
 
                     break;
 
-                case 2:
+                case 3:
                     updateDisabledButtonsStepArticle();
+                    inputCantArticle.removeEventListener("input",handleChangeCantArticle)
+                    inputCantArticle.addEventListener("input",handleChangeCantArticle)
                     btnAddArticle.removeEventListener(
                         "click",
                         handleBtnAddArticle,
@@ -700,6 +702,17 @@ import Layout from "../layouts/Layout.astro";
                         "click",
                         handleBtnAddArticle,
                     );
+                    function handleChangeCantArticle(event) {
+                        const input = event.target.value
+                        if (isNaN(input)) {
+                            event.target.value = ""
+                            return
+                        }
+                        if(event.target.value > 1){
+                            event.target.value = input.substring(0,2)
+                            return
+                        }
+                    }
                     function handleBtnAddArticle(event) {
                         event.preventDefault();
                         const cantArticle = inputCantArticle.value;
@@ -767,7 +780,7 @@ import Layout from "../layouts/Layout.astro";
 
                     break;
 
-                case 3: //step services
+                case 4: //step services
                     containerServices.removeEventListener(
                         "click",
                         handleContainerServices,
