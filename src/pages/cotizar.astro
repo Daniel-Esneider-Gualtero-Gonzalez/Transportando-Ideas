@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ToogleInput from "../components/ToogleInput.astro";
 ---
 
 <Layout title="Cotizar">
@@ -154,8 +155,8 @@ import Layout from "../layouts/Layout.astro";
             width: 100%;
         }
         #cotizar-form .step * {
-            margin-top: 17px;
-            margin-bottom: 17px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         #cotizar-form > *:not(:first-child) {
@@ -235,6 +236,8 @@ import Layout from "../layouts/Layout.astro";
         }
         #step-article-list #control-list-articles {
             width: 80%;
+            display: flex;
+            flex-wrap: wrap;
             margin: auto;
         }
 
@@ -245,15 +248,13 @@ import Layout from "../layouts/Layout.astro";
         }
 
         #step-article-list #input-cant-article {
-            width: 5%;
+            width: 20%;
         }
 
-        #step-article-list #input-article {
-            width: 75%;
-        }
 
         #step-article-list #control-list-articles button {
-            width: 20%;
+             
+            color: white;
             background-color: #4bb543;
             font: bold;
         }
@@ -263,17 +264,12 @@ import Layout from "../layouts/Layout.astro";
         }
 
         #step-select-services .container-services {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap:1rem;
         }
 
-        #step-select-services .container-services label {
-            display: flex;
-            gap: 0.5rem;
-            width: 100%;
-            height: fit-content;
-        }
+        
     </style>
     <section id="seccion-cotizar" class="">
         <h1 class="cotizar-title">
@@ -390,17 +386,10 @@ import Layout from "../layouts/Layout.astro";
             <div id="step-select-services" class="step flex-col">
                 <h2>selecciona tus servicios</h2>
                 <div id="container-services" class="container-services">
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="Personal de cargue y descargue"
-                        />
-                        Personal de cargue y descargue
-                    </label>
-                    <label>
-                        <input type="checkbox" name="Desarme y arme" />
-                        Desarme y Arme
-                    </label>
+                    <ToogleInput title="Peronal de cargue y arme" name="personal-desarme-arme" />
+                    <ToogleInput title="Desarme y Arme de estructuras" name="desarme y arme" />
+                    <ToogleInput title="Desarme y Arme de estructuras" name="desarme y arme" />
+
                 </div>
             </div>
 
@@ -415,6 +404,7 @@ import Layout from "../layouts/Layout.astro";
             <button id="btn-next-step" type="button" class="">siguiente</button>
         </div>
     </section>
+    
 
     <script>
         // Control Form
