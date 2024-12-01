@@ -6,8 +6,6 @@ import ToogleInput from "../components/ToogleInput.astro";
 <Layout title="Cotizar">
     <style is:global>
         #seccion-cotizar {
-            height: 100dvh;
-
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -212,12 +210,13 @@ import ToogleInput from "../components/ToogleInput.astro";
             gap: 1rem;
             margin: auto;
             text-align: center;
+            
         }
         #article-list th,
         td {
             padding: 6px 4px;
         }
-
+       
         #article-list tbody tr:hover {
             background-color: rgb(234, 237, 241);
             border-radius: 5px;
@@ -229,10 +228,9 @@ import ToogleInput from "../components/ToogleInput.astro";
             background-color: red;
             color: white;
         }
-
         #step-article-list div {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.2rem;
         }
         #step-article-list #control-list-articles {
             width: 80%;
@@ -243,7 +241,7 @@ import ToogleInput from "../components/ToogleInput.astro";
 
         #step-article-list #control-list-articles input,
         button {
-            padding: 5px;
+            padding: 8px 5px;
             border-radius: 5px;
         }
 
@@ -255,8 +253,8 @@ import ToogleInput from "../components/ToogleInput.astro";
             color: white;
             background-color: #4bb543;
             font: bold;
+            border-radius: 0px 15px 15px 0px;
         }
-
         /* stylos para seleccionar servicios */
         #step-select-services h2 {
         }
