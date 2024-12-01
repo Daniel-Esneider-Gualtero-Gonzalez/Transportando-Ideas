@@ -23,24 +23,24 @@ import ToogleInput from "../components/ToogleInput.astro";
             margin-top: 3rem;
             margin-bottom: 4rem;
         }
-        @media (max-width:480px) {
-            #seccion-cotizar .cotizar-title{
+        @media (max-width: 480px) {
+            #seccion-cotizar .cotizar-title {
                 font-size: 0.8rem;
                 width: 80%;
             }
         }
-        @media (min-width:480px) {
-            #seccion-cotizar .cotizar-title{
+        @media (min-width: 480px) {
+            #seccion-cotizar .cotizar-title {
                 font-size: 1rem;
             }
         }
-        @media (min-width:600px) {
-            #seccion-cotizar .cotizar-title{
+        @media (min-width: 600px) {
+            #seccion-cotizar .cotizar-title {
                 font-size: 1.3rem;
             }
         }
-        @media (min-width:700px) {
-            #seccion-cotizar .cotizar-title{
+        @media (min-width: 700px) {
+            #seccion-cotizar .cotizar-title {
                 font-size: 1.5rem;
             }
         }
@@ -251,9 +251,7 @@ import ToogleInput from "../components/ToogleInput.astro";
             width: 20%;
         }
 
-
         #step-article-list #control-list-articles button {
-             
             color: white;
             background-color: #4bb543;
             font: bold;
@@ -266,10 +264,8 @@ import ToogleInput from "../components/ToogleInput.astro";
         #step-select-services .container-services {
             display: flex;
             flex-wrap: wrap;
-            gap:1rem;
+            gap: 1rem;
         }
-
-        
     </style>
     <section id="seccion-cotizar" class="">
         <h1 class="cotizar-title">
@@ -386,10 +382,18 @@ import ToogleInput from "../components/ToogleInput.astro";
             <div id="step-select-services" class="step flex-col">
                 <h2>selecciona tus servicios</h2>
                 <div id="container-services" class="container-services">
-                    <ToogleInput title="Peronal de cargue y arme" name="personal-desarme-arme" />
-                    <ToogleInput title="Desarme y Arme de estructuras" name="desarme y arme" />
-                    <ToogleInput title="Desarme y Arme de estructuras" name="desarme y arme" />
-
+                    <ToogleInput
+                        title="Peronal de cargue y arme"
+                        name="personal-desarme-arme"
+                    />
+                    <ToogleInput
+                        title="Desarme y Arme de estructuras"
+                        name="desarme y arme"
+                    />
+                    <ToogleInput
+                        title="Desarme y Arme de estructuras"
+                        name="desarme y arme"
+                    />
                 </div>
             </div>
 
@@ -404,7 +408,6 @@ import ToogleInput from "../components/ToogleInput.astro";
             <button id="btn-next-step" type="button" class="">siguiente</button>
         </div>
     </section>
-    
 
     <script>
         // Control Form
@@ -433,6 +436,12 @@ import ToogleInput from "../components/ToogleInput.astro";
         // fin progress bar
 
         // STEP ORIGIN -  DESTINY
+        const objectDestini = {
+            department_origin: "",
+            citi_origin: "",
+            department_destini: "",
+            citi_destini: "",
+        };
         const selectDepartamentoOrigen = document.getElementById(
             "departamento-origen",
         );
@@ -467,17 +476,32 @@ import ToogleInput from "../components/ToogleInput.astro";
             selectCiudadDestino.appendChild(optionOrigin.cloneNode(true));
         }
         async function handleChangeDepartment(event: Event) {
-            const target = event.target as HTMLSelectElement;
+            const target = event.target as HTMLSelectElement; // e target siempre sera el select en si
+            const optionSelected = target.options[target.selectedIndex]; // recuperamos el option seleccionado
             const idDepartment = target.value;
             const result = await getCities(Number(idDepartment));
             if (result.error) return;
             //    renderizar en el select adecuado si es de origen o destino
             if (target.id === "departamento-origen") {
-                cleanOptions(selectCiudadOrigen);
+                // cambiamos el departamneto origen y ciudad de acuerdo a la opcion seleccionada
+                objectDestini.department_origin = optionSelected.text;
+                objectDestini.citi_origin = result.data[0].name;
+                console.log("object destini origin ", objectDestini);
+                cleanOptions(selectCiudadOrigen); // limpiamos las opciones de ciudades del departamento anterior
                 renderCities(selectCiudadOrigen, result.data);
             } else {
+                objectDestini.department_destini = optionSelected.text;
+                objectDestini.citi_destini = result.data[0].name;
                 cleanOptions(selectCiudadDestino);
                 renderCities(selectCiudadDestino, result.data);
+            }
+        }
+        function handleChangeCity(event: Event) {
+            const target = event.target as HTMLSelectElement;
+            if (target.id === "ciudad-origen") {
+                objectDestini.citi_origin = target.value;
+            } else {
+                objectDestini.citi_destini = target.value;
             }
         }
         selectDepartamentoOrigen.addEventListener(
@@ -488,6 +512,8 @@ import ToogleInput from "../components/ToogleInput.astro";
             "change",
             handleChangeDepartment,
         );
+        selectCiudadOrigen.addEventListener("change", handleChangeCity);
+        selectCiudadDestino.addEventListener("change", handleChangeCity);
 
         function renderDestinos(listDestinos) {
             for (let i = 0; i < listDestinos.length; i++) {
@@ -530,7 +556,10 @@ import ToogleInput from "../components/ToogleInput.astro";
                 return { error: "no se pudieron obtener las ciudades" };
             }
         }
-
+        // para formatear el texto si contiene algun caracter especial
+        function encodeUri(text: string = "") {
+            return encodeURIComponent(text);
+        }
         async function inicializarSteps() {
             disabledElement(btnPrevStep, true);
             handleLoadingDepartmentSelects();
@@ -546,7 +575,12 @@ import ToogleInput from "../components/ToogleInput.astro";
                     Number(ferstCitiesDepartment.id),
                 );
                 if (initialCities.error) return;
-
+                // iniciar el objectdestinis
+                objectDestini.department_origin = departments[0].name;
+                objectDestini.department_destini = departments[0].name;
+                objectDestini.citi_origin = initialCities.data[0].name;
+                objectDestini.citi_destini = initialCities.data[0].name;
+                console.log("object destini initial ", objectDestini);
                 renderCities(selectCiudadOrigen, initialCities.data);
                 renderCities(selectCiudadDestino, initialCities.data);
             } catch (error) {}
@@ -884,7 +918,14 @@ import ToogleInput from "../components/ToogleInput.astro";
                     }
 
                     break;
-
+                case 5:
+                    location.href = `¡Hola! Quiero realizar una cotización para mi próximo transporte.%0A
+*Departamento Origen:* ${encodeUri(objectDestini.department_origin)}%0A
+*Ciudad Origen:* ${encodeUri(objectDestini.citi_origin)}%0A
+*Departamento Destino:* ${encodeUri(objectDestini.department_destini)}%0A
+*Ciudad Destino:* ${encodeUri(objectDestini.citi_destini)}`;
+                    
+                    break;
                 default:
                     break;
             }
