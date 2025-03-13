@@ -1,0 +1,361 @@
+---
+import LinkContact from "../components/LinkContact.astro"
+import LinkCotizarBento from "../components/LinkCotizarBento.astro"
+---
+
+
+<style>
+    * {
+      list-style: none;
+      box-sizing: border-box;
+
+    }
+
+    section {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(1, minmax(200px, 1fr));
+      gap: 0.5rem;
+      font-size: 1.2rem;
+      width: 100%;
+      overflow: hidden;
+    }
+    section h2,h3{
+        font-weight: bold;
+        
+    }
+
+    section img {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 100%;
+      inset: 0;
+      background-color: white;
+      margin: auto;
+      display: none;
+
+    }
+
+    .slogan {
+      background-image:radial-gradient(ellipse at bottom left, #d97706, #1e40af, #fb7185);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: none;
+      text-align: center;
+      font-size: 1.9rem;
+
+    }
+
+    @media (min-width:620px) {
+      section {
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+      }
+
+      .info-users article {
+        height: 50%;
+      }
+    }
+
+    @media (min-width:1045px) {
+      section {
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+        width: 98%;
+        margin: auto;
+      }
+
+      section img {
+        display: flex;
+      }
+
+      .slogan {
+        display: flex;
+      }
+
+      .contactanos {
+        position: relative;
+        height: 50%;
+        /* background: conic-gradient(at bottom right, #000000, #000000, #251c4b); */
+      }
+
+
+    }
+
+
+
+    section div,
+    article {
+      /* height: 200px; */
+      border-radius: 20px;
+      border: 0.2px solid rgba(50, 115, 220, 0.3);
+      padding: 5px;
+
+    }
+    .service {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .service ul {
+      padding: 0;
+    }
+
+    .service ul li {
+      display: flex;
+      align-items: center;
+
+    }
+
+    .service ul li svg {
+      color: green;
+    }
+
+    .info-users {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .info-users article {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-users .clientes {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-users .clientes div {
+      display: flex;
+      width: fit-content;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .info-users .clientes div .empresa {
+      display: flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      background-color: blue;
+      margin-left: -10%;
+    }
+
+    .info-users .clientes div .empresa:nth-child(1) {
+      background-color: rebeccapurple;
+    }
+
+    .info-users .button-cotizar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      height: 50%;
+      min-height: 50px;
+      background-color: #2563EB;
+      border: none;
+      font-size: 1.4rem;
+      border-radius: 20px;
+      color: white;
+
+    }
+
+    .info-path {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: space-between;
+    }
+
+    .info-path article {
+      height: 100%;
+      width: 50%;
+
+    }
+
+    .info-path article h3 {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contactanos {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contactanos ul {
+      display: flex;
+      gap: 2rem;
+      min-height: calc(20% + 50px);
+
+    }
+
+    .contactanos ul> :nth-child(odd) {
+      align-self: flex-end;
+    }
+
+    .contactanos svg {
+      width: 50px;
+      height: 50px;
+    }
+  </style>
+
+
+
+  <section>
+    <img
+      src="https://th.bing.com/th?q=Truck+Front+View&w=120&h=120&c=1&rs=1&qlt=90&cb=1&pid=InlineBlock&mkt=es-XL&cc=CO&setlang=es&adlt=strict&t=1&mw=247"
+      alt="">
+    <div class="div1 service">
+      <h3 class="flex items-center justify-between">Logistica de eventos 
+        <span class=" text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl bg-gray-800 text-yellow-300">servicio</span>
+      </h3>
+      <span>Especializado en Mobiliario y decoración</span>
+      <ul>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+          </svg>
+          Montaje y desmontaje
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+          </svg>
+          Equipos audiovisuales
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+          </svg>
+          Mobiliario y decoración
+        </li>
+      </ul>
+
+
+    </div>
+
+    <div class="slogan">
+      <h3>Continumos creciendo y mejornado cada dia</h3>
+    </div>
+    <div class="service">
+      <h3 class="flex items-center justify-between">Trasteos y Mudanzas
+        <span class=" text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl bg-gray-800 text-yellow-300">servicio</span>
+      </h3>
+      <span>Servicio completo de mudanzas para hogares y oficinas</span>
+      <ul>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+          </svg>
+          Mobiliario y decoración
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+          </svg>
+          Mobiliario y decoración
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+          </svg>
+          Mobiliario y decoración
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+          </svg>
+          Mobiliario y decoración
+        </li>
+
+      </ul>
+    </div>
+
+
+    <div class="info-users">
+      <article class="clientes">
+        <div>
+          <span class="empresa"></span>
+          <span class="empresa"></span>
+          <span class="empresa"></span>
+        </div>
+        <span>300+ </span>
+        <span>Empresas que nos respaldan</span>
+      </article>
+      <article>
+        <LinkCotizarBento />
+      </article>
+    </div>
+
+    <div class="info-path">
+      <article>
+        <h3 style="margin-top: 50%;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-shield-half">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M11.998 2l.032 .002l.086 .005a1 1 0 0 1 .342 .104l.105 .062l.097 .076l.016 .015l.247 .21a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.791 -2.75l.046 -.036l.053 -.041a1 1 0 0 1 .217 -.112l.075 -.023l.036 -.01a1 1 0 0 1 .12 -.022l.086 -.005zm.002 2.296l-.176 .135a13 13 0 0 1 -7.288 2.572l-.264 .006l-.064 .31a11 11 0 0 0 1.064 7.175l.17 .314a11 11 0 0 0 6.49 5.136l.068 .019z" />
+          </svg>
+          <span>Seguridad y protección</span>
+        </h3>
+        <p>garantizamos la seguridad y cuidado de sus muebles y bienes para el destino final </p>
+
+      </article>
+
+      <article>
+        <h3 style="margin-top: 50%; display: flex; align-items: end;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-shield-half">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M11.998 2l.032 .002l.086 .005a1 1 0 0 1 .342 .104l.105 .062l.097 .076l.016 .015l.247 .21a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.791 -2.75l.046 -.036l.053 -.041a1 1 0 0 1 .217 -.112l.075 -.023l.036 -.01a1 1 0 0 1 .12 -.022l.086 -.005zm.002 2.296l-.176 .135a13 13 0 0 1 -7.288 2.572l-.264 .006l-.064 .31a11 11 0 0 0 1.064 7.175l.17 .314a11 11 0 0 0 6.49 5.136l.068 .019z" />
+          </svg>
+          <span>Puntaulidad</span>
+        </h3>
+        <p>al recoger y entregar a tiempo para sus eventos </p>
+      </article>
+    </div>
+
+    <div class="contactanos">
+      <ul>
+        <li><LinkContact type="whatsapp" istooltype={true}/>
+            <li> <LinkContact type="email" istooltype={true} /></li>
+        <li><LinkContact type="phone" istooltype={true}/></li>
+        <li><LinkContact type="facebook" istooltype={true} /></li>
+      </ul>
+    </div>
+  </section>
+
