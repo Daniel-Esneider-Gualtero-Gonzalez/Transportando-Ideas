@@ -1,0 +1,43 @@
+<a href="/cotizar" class="linkBento">
+    <span class="span">Cotizar ahora <span class="arrow">--></span></span>
+    <span class="second"></span>
+</a>
+
+<style>
+    .linkBento {
+        width: fit-content;
+        display: flex;
+        padding: 11px 33px;
+        font-size: 25px;
+        color: white;
+        background: blue;
+        transition: 1s;
+        box-shadow: 6px 6px 0 black;
+        transform: skewX(-18deg);
+        border: none;
+        cursor: pointer;
+    }
+    .linkBento:hover .arrow {
+        color: #fbc638;
+    }
+
+    .linkBento:focus {
+        outline: none;
+    }
+
+    .linkBento:hover {
+        background-color: black;
+        transition: 0.5s;
+        box-shadow: 10px 10px 0 #fbc638;
+    }
+
+    .linkBento .second {
+        transition: 0.5s;
+        margin-right: 0px;
+    }
+
+    .linkBento:hover .second {
+        transition: 0.5s;
+        margin-right: 45px;
+    }
+</style>
