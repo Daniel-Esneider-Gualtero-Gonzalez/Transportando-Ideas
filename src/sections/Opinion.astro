@@ -1,414 +1,76 @@
 ---
-import Buble from "../components/Buble.astro";
-const opiniones = [
-    {
-        text: "La cotización fue muy rápida y precisa. Me sorprendió lo fácil que fue obtener toda la información para mi envío.",
-        author: "Diego López",
-    },
-    {
-        text: "Muy útil para gestionar mis envíos. La interfaz es clara y el proceso de cotización es súper intuitivo.",
-        author: "Sofía Muñoz",
-    },
-    {
-        text: "El diseño es excelente, me permitió agregar los detalles de mis artículos sin complicaciones. ¡Totalmente recomendada!",
-        author: "Gabriel Torres",
-    },
-    {
-        text: "Nunca pensé que un proceso de cotización pudiera ser tan ágil. Me encanta cómo muestra cada paso del proceso.",
-        author: "Valentina Rivas",
-    },
-    {
-        text: "Las opciones de servicio y la personalización de los artículos a enviar son justo lo que necesitaba para mi negocio.",
-        author: "Jorge Medina",
-    },
-];
+import OpinionMobile from "../components/section/opinion/OpinionMobile.astro";
 ---
 
+<section id="section-opinion" class="flex flex-col gap-4 md:gap-6">
+    
+    <h2 class="text-xl sm:text-3xl w-fit font-semibold mx-auto">
+        Opiniones de nuestros clientes
+    </h2>
+    <p class="w-fit text-sm md:text-xl h-fit text-center mx-auto">
+        Gracias a estas continuamos mejorando la calidad de nuestros servicios
+    </p>
+
+    <OpinionMobile />
+</section>
+
 <style is:global>
-    .div-opinion footer {
-       
-        display: flex;
-        justify-content: center;
+    section {
+        position: relative;
+        overflow: hidden;
     }
-
-    @media (max-width: 890px) {
-        /* estylos de opinion para mobile */
-        #container-opinion {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .image-user-opinion {
-            width: 70px;
-        }
-
-        .div-opinion {
-            width: 100%;
-
-            font-weight: 500;
-            flex-shrink: 0;
-
-            /* animation: topanimation 1s linear reverse both; */
-            /* transition: all 1s linear; */
-        }
+    section .start {
+        clip-path: polygon(
+            50% 0%,
+            61% 35%,
+            98% 35%,
+            68% 57%,
+            79% 91%,
+            50% 70%,
+            21% 91%,
+            32% 57%,
+            2% 35%,
+            39% 35%
+        );
+        position: absolute;
+        z-index: -10;
+        width: 50px;
+        height: 50px;
+        background-color: rgb(88, 88, 12);
+        border-radius: 100%;
+        animation: moveStarts 8s ease-in-out  both  ;
     }
-
-    /* estylos de seccion de opinion para laptos */
-
-    @media (min-width: 890px) {
-        :root {
-            --container-opinion-width: 850px;
-            --container-opinion-height: 460px;
-            --div-opinion-width: 400px;
-            --div-opinion-height: 200px;
-        }
-
-        @media (min-width: 1000px) {
-            :root {
-                --container-opinion-width: 1100px;
-                --div-opinion-width: 480px;
-            }
-        }
-
-        #container-opinion {
-            /* border: 1px solid black; */
-            position: relative;
-            overflow: hidden;
-            height: var(--container-opinion-height);
-            width: var(--container-opinion-width);
-            margin: auto;
-        }
-
-        #container-opinion div:nth-child(1) {
-            position: absolute;
-            bottom: 0;
-            /* animation: firstOpinion 2s linear; */
-        }
-
-        #container-opinion div:nth-child(2) {
-            position: absolute;
-            left: 0;
-            right: 0;
-            margin: auto;
-
-            /* animation: toFirstOpinion 2s linear; */
-        }
-
-        #container-opinion div:nth-child(3) {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            /* animation: toSecondOpinion 2s linear; */
-        }
-
-        #container-opinion div:nth-child(4) {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-        }
-
-        .div-opinion {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: var(--div-opinion-width);
-            height: var(--div-opinion-height);
-            padding: 5px;
-
-            font-weight: 500;
-
-            /* animation: topanimation 1s linear reverse both; */
-            /* transition: all 1s linear; */
-        }
-
-        .comillas {
-            color: blue;
-            font-size: 1.5rem;
-            margin-inline: 3px;
-        }
-
-        .image-user-opinion {
-            width: 60px;
-            height: 60px;
-
-            border-radius: 100%;
-        }
-
-        /* la primera opinion pasa a hacerf eliminada  */
-        .first-opinion {
-            animation: firstOpinion 2s linear both;
-        }
-
-        /* la segunda opinion pasa a hacer la primera */
-        .to-first-opinion {
-            animation: toFirstOpinion 2s linear both;
-        }
-
-        /* la tercera opinion pasa a hacer la segunda */
-        .to-second-opinion {
-            animation: toSecondOpinion 2s linear both;
-        }
-
-        .new-opinion {
-            animation: newOpinion 1s linear;
-        }
-    }
-
-    @keyframes firstOpinion {
-        to {
-            transform: translateX(-100%);
-            opacity: 0;
-        }
-    }
-
-    @keyframes toFirstOpinion {
-        from {
-            transform: translate(0, 0);
-            /* Comienza en la posición actual */
-        }
-
-        to {
-            transform: translate(
-                calc(
-                    calc(0px - calc(var(--container-opinion-width) / 2)) +
-                        calc(0px + calc(var(--div-opinion-width) / 2))
-                ),
-                calc(
-                    var(--container-opinion-height) - var(--div-opinion-height)
-                )
-            );
-            /* Mueve hacia arriba e izquierda */
-        }
-    }
-
-    @keyframes toSecondOpinion {
-        from {
-            transform: translate(0, 0);
-            /* Comienza en la posición actual */
-        }
-
-        /* para que el translate sea efectivo hay que ponerle un ancho exacto al contenedor
-        mas la mitad  del ancho o radio del elemento opinion */
-        to {
-            transform: translate(
-                calc(
-                    calc(0px - (var(--container-opinion-width) / 2)) +
-                        calc(0px + calc(var(--div-opinion-width) / 2))
-                ),
-                calc(
-                    -0px - calc(var(--container-opinion-height) -
-                                var(--div-opinion-height))
-                )
-            );
-            /* Mueve hacia arriba e izquierda */
-        }
-    }
-
-    @keyframes newOpinion {
-        from {
-            transform: translateX(100%);
-        }
-
-        to {
-            transform: translateX(0);
-        }
+   
+    @keyframes moveStarts {
+        0%{ transform: translateX(0%) translateY(0%); opacity:0 }
+        100%{ transform: translateX(153%) translateY(400%); opacity: 0.2}
     }
 </style>
-<div class="flex flex-col relative gap-3 mb-4">
-    <h2 class="text-3xl w-fit font-semibold mx-auto">Opiniones</h2>
-    <p class="w-fit h-fit text-center mx-auto">
-        Gracias a sus opiniones seguimos mejorando
-    </p>
-    <Buble className="inset-0 mx-auto top-10"/> 
-    <Buble className="bottom-0 left-0"/> 
-    <Buble className="bottom-0 right-0"/> 
-<section id="container-opinion" class="container-opinion">
-    
-    {
-        opiniones.map((opinion, index) => {
-            if (index >= 3) return;
-
-            return (
-                <div class="div-opinion ">
-                    <p>
-                        <span class="comillas">""</span>
-                        {opinion.text}
-                        <span class="comillas">""</span>
-                    </p>
-                    <footer class="flex gap-3 items-center mt-3">
-                        <img
-                            class="image-user-opinion"
-                            src="https://imgs.search.brave.com/QXX2xvcXcGS2jVr8hyGdwhw1WOxBOa2YUPkaNz-SR3c/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMTMvR29r/dS5wbmc"
-                            alt=""
-                        />
-                        <span>{opinion.author}</span>
-                    </footer>
-                </div>
-            );
-        })
-    }
-</section>
-</div>
 
 <script>
-    const opinions = [
-        {
-            text: "La cotización fue muy rápida y precisa. Me sorprendió lo fácil que fue obtener toda la información para mi envío.",
-            author: "Diego López",
-        },
-        {
-            text: "Muy útil para gestionar mis envíos. La interfaz es clara y el proceso de cotización es súper intuitivo.",
-            author: "Sofía Muñoz",
-        },
-        {
-            text: "El diseño es excelente, me permitió agregar los detalles de mis artículos sin complicaciones. ¡Totalmente recomendada!",
-            author: "Gabriel Torres",
-        },
-        {
-            text: "Nunca pensé que un proceso de cotización pudiera ser tan ágil. Me encanta cómo muestra cada paso del proceso.",
-            author: "Valentina Rivas",
-        },
-        {
-            text: "Las opciones de servicio y la personalización de los artículos a enviar son justo lo que necesitaba para mi negocio.",
-            author: "Jorge Medina",
-        },
-    ];
+    const containerSection = document.querySelector("#section-opinion");
 
-    // maxima posicion para insertar la nueva opinion
-    let maxOpinion = opinions.length;
-    // posicion inicial para la nueva opinion "depende de cuantas opiniones iniciales pongamos"
-    let currentNewOpinion = 3;
-    // variable para almacenar el id del intervalo
-    let opinionInterval;
-    let opinionIntervalMobile;
+    const cantEstrellas = 50;
+    const listFragments = [];
+    animationStarts()
+    
 
-    // mediaquery para pausar la animacion
-    const mediaQuery = window.matchMedia("(min-width: 890px)");
+    function animationStarts() {
+        const fragment = document.createDocumentFragment();
+        for (let index = 1; index <= cantEstrellas; index++) {
+            const posicionButtonEstrella = Math.floor(Math.random() * 130);
+            const posicionLeftEstrella = Math.floor(Math.random() * 130);
+            const spanEstrella = document.createElement("span");
+            spanEstrella.classList.add("start");
+            spanEstrella.style.bottom = posicionButtonEstrella + "%";
+            spanEstrella.style.left = posicionLeftEstrella + "%";
+        
+            fragment.appendChild(spanEstrella);
+            listFragments.push(spanEstrella)
+        }
+        
+        containerSection.appendChild(fragment);
+    }
 
-    function starOpinionInterval() {
-        opinionInterval = setInterval(() => {
-            const divElement = document.getElementById("container-opinion");
-            const [div1, div2, div3] = divElement.children;
-
-            div1.addEventListener(
-                "animationstart",
-                () => {
-                    if (currentNewOpinion === maxOpinion) {
-                        currentNewOpinion = 0;
-                    }
-
-                    const newDiv = document.createElement("div");
-                    newDiv.classList.add("new-opinion", "div-opinion");
-                    newDiv.innerHTML += `
-                   
-        <p>
-            <span class="comillas">""</span>
-            ${opinions[currentNewOpinion].text}
-            <span class="comillas">""</span>
-        </p>
-        <footer class="flex gap-3 items-center mt-3">
-            <img
-                class="image-user-opinion"
-                src="https://api.multiavatar.com/${currentNewOpinion}.png"
-                alt=""
-            />
-            <span>${opinions[currentNewOpinion].author}</span>
-        </footer>
    
-                    `;
-                    currentNewOpinion++;
-                    divElement.appendChild(newDiv);
-                    // pasamos a la siguiente opinion
-                },
-                { once: true },
-            );
-            div1.addEventListener(
-                "animationend",
-                () => {
-                    const clonedContainer = divElement.cloneNode(false);
-
-                    Array.from(divElement.children).forEach((child, index) => {
-                        if (index !== 0) {
-                            // Excluir el primer hijo
-                            child.className = "div-opinion";
-                            const clonedChild = child.cloneNode(true);
-
-                            // Clonar el hijo completamente
-                            clonedContainer.appendChild(clonedChild);
-                        }
-                    });
-                    divElement.parentNode.replaceChild(
-                        clonedContainer,
-                        divElement,
-                    );
-                },
-                { once: true },
-            );
-            // div1.classList.remove("last-opinion")
-            div1.classList.add("first-opinion");
-            div2.classList.add("to-first-opinion");
-            div3.classList.add("to-second-opinion");
-        }, 10000);
-    }
-
-    function starOpinionIntervalMobile() {
-        // si  tiene un minimo de ancho de 890 quitamos el mobiles
-        if (window.matchMedia("(min-width: 890px)").matches) {
-            if (opinionIntervalMobile) starOpinionIntervalMobile();
-            return;
-        }
-
-        opinionIntervalMobile = setInterval(() => {
-            const divElement = document.getElementById("container-opinion");
-            console.log("children mobile", divElement.children);
-            const [opinion1, opinion2, others] = divElement.children;
-            console.log(opinion1);
-
-            // opinion1.classList.add("first-opinion")
-        }, 5000);
-    }
-
-    function stopOpinionInterval() {
-        clearInterval(opinionInterval);
-    }
-    function stopOpinionIntervalMobile() {
-        clearInterval(opinionIntervalMobile);
-    }
-
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-            stopOpinionInterval();
-        } else {
-            starOpinionInterval();
-        }
-    });
-
-    mediaQuery.addEventListener("change", (event) => {
-        if (event.matches) {
-            if (opinionInterval) stopOpinionInterval();
-            starOpinionInterval();
-        } else {
-            stopOpinionInterval();
-            // tenemos que inical la animacion de opinion para mobile
-        }
-    });
-
-    // para mobile
-    // const mediaMobile =
-
-    // funcion para comprobar si el media query inicial coicide , para no tener que esperar al del evento
-    function startInitial() {
-        const initialMedia = window.matchMedia("(min-width: 890px)");
-        if (initialMedia.matches) {
-            starOpinionInterval();
-        } else {
-            console.log("es menor de 890");
-            starOpinionIntervalMobile();
-        }
-    }
-    startInitial();
 </script>
