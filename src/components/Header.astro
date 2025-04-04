@@ -1,174 +1,181 @@
 ---
-import Logo from "./Logo.astro"
+import Arrow from "./icons/Arrow.astro";
+import Logo from "./Logo.astro";
 ---
+
 <style>
+    .header-nav a[aria-current="page"]{
+        border-bottom: 4px solid blue;
+        border-radius: 5px;
+       
+    }
+    .header-nav a:hover{
+       border-bottom: 4px solid blue;
+       border-radius: 5px;
+    }
     .header-nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 5px;
+        /* padding: 5px; */
         font-size: 1.2rem;
-
+    }
+    .header-nav ul li{
+        display: flex;
+        min-height: calc(100% + 10px );
+        min-width: calc(100% + 12px);   
     }
 
     .header-nav a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 4px;
         position: relative;
-        width: fit-content;
         transition: all 100ms linear;
-        
+        border-radius: 5px;
     }
-
-    .header-nav a:hover {
-
-        color: blue;
-        /* Cambia esto al estilo deseado */
-        font-weight: bold;
-    }
-
-    .header-nav a:hover::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-        bottom: -110%;
-        /* Ajusta según tus necesidades */
-        width: 30px;
-        height: 25px;
-        background-color: blue;
-        /* clip-path para la forma de la línea */
-        clip-path: polygon(100% 0, 0 0, 50% 100%);
-
+    
+    #menu-mobile ul li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     /* si el munu mobile esta abierto y agrandan la pantalla lo ocultamos */
-    @media (min-width:768px) {
-        #menu-mobile{
+    @media (min-width: 768px) {
+        #menu-mobile {
             visibility: hidden;
         }
     }
-
-    /* STYLOS DE HOVER LINK PARA MENU MOBILE PAGE PARA MOBILE */
-    @media (max-width:768px) {
+    @media (max-width:768px ) {
         
-        #menu-mobile a:hover::before {
-            content: '';
-            position: absolute;
-            right: calc(-100% - 30px);
-            top: 0;
-            bottom: 0;
-            left: 0;
-            margin: 0 auto;
-
-
-
-            rotate: 90deg;
-
-            /* Ajusta según tus necesidades */
-            width: 25px;
-            height: 25px;
-            background-color: blue;
-            /* clip-path para la forma de la línea */
-            clip-path: polygon(100% 0, 0 0, 50% 100%);
+        .header-nav ul li{
+            min-width: fit-content ;
+            min-height: fit-content ;
         }
-
-
-
-    }   
+        .header-nav ul li a {
+            display: flex ;
+            justify-content: space-between;
+        }
+    }
 </style>
 <header>
-    <nav id="menu-destok" class="header-nav  relative">
+    <nav id="menu-destok" class="header-nav relative">
         <div>
-           <Logo />
+            <Logo />
         </div>
 
         <div class="invisible md:visible">
             <ul class="flex gap-4">
-                <li><a  href="/" aria-label="Ir a la sección de sobre nosotros">Inicio</a></li>
-                <li><a href="/cotizar" aria-label="Ir a la sección de servicios ">Cotizar</a></li>
-
+                <li>
+                    <a href="/" aria-label="Ir a la sección de sobre nosotros"
+                        >Inicio</a>
+                </li>
+                <li>
+                    <a
+                        href="/cotizar"
+                        aria-label="Ir a la sección de servicios ">Cotizar</a>
+                </li>
             </ul>
-
         </div>
         <!-- btn para abrir menu en dispositivo movil -->
         <button id="btn-open-menu-mobile" class="md:collapse w-fit">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M4 6l16 0" />
-                <path d="M4 12l16 0" />
-                <path d="M4 18l16 0" />
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+               
+            >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 6l16 0"></path>
+                <path d="M4 12l16 0"></path>
+                <path d="M4 18l16 0"></path>
             </svg>
         </button>
 
         <!-- menu mobile -->
-        <nav id="menu-mobile"
-            class="px-6 z-10 invisible lg:hidden inset-0 left-0 flex flex-col  gap-3 right-0 bg-gray-100 fixed ">
-            <div class="  flex items-center justify-between">
+        <nav
+            id="menu-mobile"
+            class="py-1 px-2 z-10 invisible lg:hidden inset-0 left-0 flex flex-col gap-2 right-0 bg-gray-100 fixed"
+        >
+            <div class="flex items-center justify-between">
                 <div>
                     <Logo />
                 </div>
                 <div>
-                    <button id="btn-close-menu-mobile">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-x">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M18 6l-12 12" />
-                            <path d="M6 6l12 12" />
+                    <button id="btn-close-menu-mobile" class="hover:text-red-600 hover:rotate-180 transition-transform duration-200 ease-out">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"
+                            ></path>
+                            <path d="M18 6l-12 12"></path>
+                            <path d="M6 6l12 12"></path>
                         </svg>
                     </button>
-
                 </div>
-
-
             </div>
-            <ul class="flex flex-col gap-3 ">
-                <li><a href="/"  aria-current="page" aria-label="Ir a la sección de sobre nosotros">Inicio</a></li>
-                <a href="/cotizar">Cotizar</a>
+            <ul class="flex gap-2 flex-col ">
+                <li >
+                    <a class="group-[]:"
+                        href="/"
+                        aria-label="Ir a la sección de sobre nosotros"
+                        >Inicio
+                        <Arrow  className="w-8 " />
+                    </a>
+                </li>
+                <li>
+                    <a href="/cotizar"
+                        >Cotizar
+                        <Arrow className="w-8 " />
+                    </a>
+                </li>
             </ul>
-
         </nav>
-
-
     </nav>
-
-
-
-
-    
 </header>
 
 <script>
-    const menuDestok = document.getElementById("menu-destok")
-    const btnOpenMenuMobile = document.getElementById("btn-open-menu-mobile")
-    const btnCloseMenuMobile = document.getElementById("btn-close-menu-mobile")
-    const menuMobile = document.getElementById("menu-mobile")
+    const menuDestok = document.getElementById("menu-destok");
+    const btnOpenMenuMobile = document.getElementById("btn-open-menu-mobile");
+    const btnCloseMenuMobile = document.getElementById("btn-close-menu-mobile");
+    const menuMobile = document.getElementById("menu-mobile");
 
     btnOpenMenuMobile.addEventListener("click", () => {
-        menuMobile.classList.remove("invisible")
-    })
+        menuMobile.classList.remove("invisible");
+    });
     btnCloseMenuMobile.addEventListener("click", () => {
-        menuMobile.classList.toggle("invisible")
-    })
-
+        menuMobile.classList.toggle("invisible");
+    });
 
     // evento para detectar las rutas y poner estilos a los enlaces que coicidan con la ruta
 
-    window.addEventListener('pageshow', (event) => {
+    window.addEventListener("pageshow", (event) => {
         if (menuDestok) {
-            const links = menuDestok.querySelectorAll("a")
+            const links = menuDestok.querySelectorAll("a");
             links.forEach((link) => {
-
                 if (link.pathname === window.location.pathname) {
-                    link.setAttribute('aria-current', 'page');
+                    link.setAttribute("aria-current", "page");
                 } else {
-                    link.removeAttribute('aria-current')
+                    link.removeAttribute("aria-current");
                 }
-            })
-
+            });
         }
-
     });
 </script>
