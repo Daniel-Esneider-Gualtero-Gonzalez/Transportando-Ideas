@@ -7,7 +7,7 @@ import OpinionMobile from "../components/section/opinion/OpinionMobile.astro";
     <h2 class="text-xl sm:text-3xl w-fit font-semibold mx-auto">
         Opiniones de nuestros clientes
     </h2>
-    <p class="w-fit text-sm md:text-xl h-fit text-center mx-auto">
+    <p class="w-fit text-sm md:text-lg h-fit text-center mx-auto">
         Gracias a estas continuamos mejorando la calidad de nuestros servicios
     </p>
 
@@ -20,6 +20,7 @@ import OpinionMobile from "../components/section/opinion/OpinionMobile.astro";
         overflow: hidden;
     }
     section .start {
+        visibility: hidden;
         clip-path: polygon(
             50% 0%,
             61% 35%,
@@ -44,6 +45,11 @@ import OpinionMobile from "../components/section/opinion/OpinionMobile.astro";
     @keyframes moveStarts {
         0%{ transform: translateX(0%) translateY(0%); opacity:0 }
         100%{ transform: translateX(153%) translateY(400%); opacity: 0.2}
+    }
+    @media (min-width:600px) {
+        section .start{
+            visibility: visible;
+        }
     }
 </style>
 
