@@ -1,0 +1,77 @@
+<div class="container-opinion-mobile">
+    
+    <div class="contenido-opinion">
+        <div>
+            <h3 class="font-bold text-blue-600">Bardia Adibi</h3>
+            <span class="font-semibold">Gerente comercial</span>
+        </div>
+        <p class="text-opinion">Lorem ipsum s velit, in laudantium consequatur tempora enim veritatis ducimus esse dolorum reiciendis iusto incidunt excepturi dignissimos quis nobis earum necessitatibus.</p>
+    </div>
+
+    <div class="image-clientes">
+        <img src="https://th.bing.com/th/id/OIP.-CVWW8PRfDlsFe0Sk5G-JgHaHa?w=197&h=197&c=7&r=0&o=5&pid=1.7" alt="">
+        <img src="https://th.bing.com/th/id/OIP.-CVWW8PRfDlsFe0Sk5G-JgHaHa?w=197&h=197&c=7&r=0&o=5&pid=1.7" alt="">
+        <img src="https://th.bing.com/th/id/OIP.-CVWW8PRfDlsFe0Sk5G-JgHaHa?w=197&h=197&c=7&r=0&o=5&pid=1.7" alt="">
+        <img src="https://th.bing.com/th/id/OIP.-CVWW8PRfDlsFe0Sk5G-JgHaHa?w=197&h=197&c=7&r=0&o=5&pid=1.7" alt="">
+        <img src="https://th.bing.com/th/id/OIP.-CVWW8PRfDlsFe0Sk5G-JgHaHa?w=197&h=197&c=7&r=0&o=5&pid=1.7" alt="">
+        <img src="https://th.bing.com/th/id/OIP.-CVWW8PRfDlsFe0Sk5G-JgHaHa?w=197&h=197&c=7&r=0&o=5&pid=1.7" alt="">
+        <img src="https://th.bing.com/th/id/OIP.-CVWW8PRfDlsFe0Sk5G-JgHaHa?w=197&h=197&c=7&r=0&o=5&pid=1.7" alt="">
+    </div>
+</div>
+
+<style>
+    .container-opinion-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+        padding: 5px;
+        
+    }
+    .container-opinion-mobile .image-clientes {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 5px;
+        border-radius: 5px;
+        gap: 0.8rem;
+        display: flex;
+        
+    }
+    .container-opinion-mobile .image-clientes img {
+        
+        display: flex;
+        width: 50px;
+        height: 50px;
+        border: 1px dotted blue;
+        border-radius: 5px; 
+    }
+    .container-opinion-mobile .image-clientes img:nth-child(1){
+        /* la imagen y opinion actual */
+        box-shadow: -1px 1px 1px 1px  blue; 
+    }
+
+    .container-opinion-mobile .contenido-opinion{
+        margin: auto;
+        height: fit-content;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 2px 0px 3px 0px  blue; 
+    }
+    
+    @media (min-width:680px) {
+        .container-opinion-mobile {
+            /* flex-direction: row; */
+            width: 80%;
+            margin: auto;
+        }
+        .container-opinion-mobile .text-opinion{
+            font-size: 1.2rem;
+        }
+        .container-opinion-mobile .image-clientes img {
+            width: 80px;
+            height:80px;
+        }
+       
+        
+    }
+</style>
