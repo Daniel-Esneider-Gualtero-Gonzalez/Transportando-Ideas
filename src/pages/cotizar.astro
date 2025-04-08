@@ -1,9 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-import { COTIZACION_STEPS_TEXT } from "../constants/cotizarConstants";
+import { COTIZACION_STEPS_TEXT } from "../constants/cotizarConstants.js";
 import ToogleInput from "../components/ToogleInput.astro";
-import LinkContact from "../components/LinkContact.astro";
 import Whatsapp from "../components/icons/Whatsapp.astro";
 import Correo from "../components/icons/Correo.astro";
 import Pdf from "../components/icons/Pdf.astro";
@@ -598,8 +597,8 @@ import Pdf from "../components/icons/Pdf.astro";
     </section>
 
     <script is:inline type="module">
-        import { createItemTransport, typeWriter } from "../../public/utils";
-        import { COTIZACION_STEPS_TEXT } from "../../src/constants/cotizarConstants";
+        import { createItemTransport, typeWriter } from "/utils.js";
+        import { COTIZACION_STEPS_TEXT } from "../../src/constants/cotizarConstants.js";
 
         // title step
         const titleStep = document.getElementById("cotizar-title-step");
