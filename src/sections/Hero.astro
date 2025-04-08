@@ -2,14 +2,14 @@
 import LinkButtonAnimation from "../components/LinkButtonAnimation.astro";
 ---
 
-<section id="hero" class="flex flex-col gap-5 mx-auto justify-center">
+<section id="hero" class="flex flex-col  mx-auto justify-center">
     <div class="relative">
         <h1 class="">
             <span>Transportando-Ideas</span> pioneros en transporte
         </h1>
     </div>
 
-    <p class="text-md max-w-[70%]">
+    <p class="h-fit">
         <strong>Especializamos</strong>,  en ofrecer
         soluciones de transporte rápidas y eficientes, conectando tus envíos a
         cualquier destino. Cotiza con nosotros y descubre cómo podemos llevar
@@ -22,8 +22,10 @@ import LinkButtonAnimation from "../components/LinkButtonAnimation.astro";
 
 <style>
     #hero {
-        height: 80vh;
+       
+        height: 65vh;
         display: flex;
+        gap: 4rem;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -43,17 +45,34 @@ import LinkButtonAnimation from "../components/LinkButtonAnimation.astro";
     }
 
     #hero p {
-        width: 100%;
+        width: 98%;
+        
     }
 
-    @media (min-width: 648px) {
-        #hero h1 {
-            font-size: 3.65rem;
+    @media (min-width: 580px) {
+        #hero {
+            height: 65vh;
         }
+        
         #hero p {
+            font-size: 1.1rem;
             width: 80%;
         }
     }
+    @media (min-width: 860px) {
+        #hero{
+            height: 70vh;
+        }
+        #hero h1{
+            font-size: 3rem;
+        }
+        
+        #hero p {
+            font-size: 1.2rem;
+            width: 80%;
+        }
+    }
+    
 </style>
 
 <script>
@@ -61,14 +80,5 @@ import LinkButtonAnimation from "../components/LinkButtonAnimation.astro";
     buttonLink.addEventListener("click", () => {
         location.href = "/cotizar";
     });
-    function handleIntersectionObserver(entries, observer) {
-        entries.forEach((entry) => {
-            // Verificar si el elemento está intersectando (visible en la pantalla)
-            if (!entry.isIntersecting) {
-                // elemento que interciono
-            }
-        });
-    }
-    const observer = new IntersectionObserver(handleIntersectionObserver);
-    observer.observe(buttonLink);
+    
 </script>
