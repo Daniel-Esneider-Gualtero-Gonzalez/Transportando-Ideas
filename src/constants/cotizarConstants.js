@@ -5,6 +5,6 @@ export const COTIZACION_STEPS_TEXT = {
     STEP_3: "Elige el mes el dia y la hora de inicio de tu evento",
     STEP_4: "Ingresa la cantidad y el articulo que llevaras para realizar tu evento. ¡ agregalos ! ",
     STEP_5 : "Selecciona los servicios que utilizaras en esta ocasión",
-    STEP_6 : "Selecciona el medio por donde quieras enviar tu cotizacion . Tambien la puedes guardar en pdf",
+    STEP_6 : "Verifica los detalles de tu cotización y selecciona una opcion de envio. Y finaliza la cotizacion",
 
   };
