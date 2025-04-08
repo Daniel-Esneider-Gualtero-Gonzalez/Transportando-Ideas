@@ -1,5 +1,5 @@
 <a href="/cotizar" class="linkBento">
-    <span class="span">Cotizar ahora <span class="arrow">--></span></span>
+    <span class="text">Cotizar ahora <span class="arrow">--></span></span>
     <span class="second"></span>
 </a>
 
@@ -20,6 +20,11 @@
     .linkBento:hover .arrow {
         color: #fbc638;
     }
+    .linkBento .text {
+        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        overflow: hidden; /* Oculta el texto que se desborda */
+        /* text-overflow: ellipsis; Añade puntos suspensivos al final */
+    }
 
     .linkBento:focus {
         outline: none;
@@ -38,6 +43,6 @@
 
     .linkBento:hover .second {
         transition: 0.5s;
-        margin-right: 45px;
+        margin-right: 25px;
     }
 </style>
