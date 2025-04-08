@@ -1,106 +1,211 @@
+---
+import CircleCheck from "../components/icons/CircleCheck.astro";
+---
+
+<section id="elegirnos">
+    <h2 class="title-elegirnos" id="acercademi">
+        <span class="siymbol-question">¿</span>
+        <span class="text"> Porque elegirnos</span>
+        <span class="siymbol-question">?</span>
+    </h2>
+    <span class="lineme"></span>
+    <div class="rectangle"></div>
+
+    <div id="caracteristicas">
+        <article class="border-t-2 border-blue-600">
+            <span class="line"></span>
+            <span class="circle">
+                <CircleCheck className="w-[25px] text-white" />
+            </span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="blue"
+                ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                    d="M22 10v6a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-6h20zm-14.99 4h-.01a1 1 0 1 0 .01 2a1 1 0 0 0 0 -2zm5.99 0h-2a1 1 0 0 0 0 2h2a1 1 0 0 0 0 -2zm5 -10a4 4 0 0 1 4 4h-20a4 4 0 0 1 4 -4h12z"
+                ></path></svg
+            >
+            <h3>Precios transparentes</h3>
+            <p>Experiencia comprobada Más de 10 años en el sector</p>
+        </article>
+
+        <article class="border-t-2 border-green-600">
+            <span class="line"></span>
+            <span class="circle">
+                <CircleCheck className="w-[25px] text-white" />
+            </span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="green"
+                ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                    d="M18.364 4.636a9 9 0 0 1 .203 12.519l-.203 .21l-4.243 4.242a3 3 0 0 1 -4.097 .135l-.144 -.135l-4.244 -4.243a9 9 0 0 1 12.728 -12.728zm-6.364 3.364a3 3 0 1 0 0 6a3 3 0 0 0 0 -6z"
+                ></path></svg
+            >
+            <h3>Cobertura amplia</h3>
+            <p>Para todos los departamentos y sus ciudades</p>
+        </article>
+
+        <article class="border-t-2 border-yellow-400">
+            <span class="line"></span>
+            <span class="circle">
+                <CircleCheck className="w-[25px] text-white" />
+            </span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#facc15"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"
+                ></path></svg
+            >
+            <h3>Calidad Superior</h3>
+            <p>Vehículos modernos y cómodos para transporte seguro y eficaz</p>
+        </article>
+        <article class="border-t-2 border-orange-600">
+            <span class="line"></span>
+            <span class="circle">
+                <CircleCheck className="w-[25px] text-white" />
+            </span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ea580c"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                    d="M4 14v-3a8 8 0 1 1 16 0v3"></path><path
+                    d="M18 19c0 1.657 -2.686 3 -6 3"></path><path
+                    d="M4 14a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2v-3z"
+                ></path><path
+                    d="M15 14a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2v-3z"
+                ></path></svg
+            >
+            <h3>Atencion al cliente</h3>
+            <p>Soporte al cliente disponible en todo momento para asistirte.</p>
+        </article>
+    </div>
+</section>
+
 <style>
-    #elegirnos * {
-        transition: all 400ms linear;
+
+    section {
+        overflow: visible;
+        display: flex;
+        gap: 0.5rem;
+        flex-direction: column;
+        margin-top: 0.5em;
+        padding: 0.5em 0.5rem;
+    }
+    section #caracteristicas {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1.2rem;
+    }
+    .title-elegirnos {
+        position: relative;
+        width: fit-content;
+        font-size: 1.5rem;
+        padding: 5px;
+        margin: auto 0;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    .title-elegirnos::before{
+        position: absolute;
+        content: "";
+        width: calc(100% +5px);
+        height: calc(100% + 5px);
+        border-radius: 5px;
+        z-index: -1;
+        inset: 0;
+    }
+    .title-elegirnos span {
+        background-image: radial-gradient(
+      ellipse at bottom left,
+      #d97706,
+      #1e40af,
+      #fb7185
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    .circle {
+        position: absolute;
+        display: flex;
+        width: 25px;
+        height: 25px;
+        border-radius: 800px;
+        margin-left: -18px;
+        margin-top: -10px;
+        background-color: green;
     }
 
-    #elegirnos .line {
-        width: 1px;
-        height: 15px;
+    article {
+        background-color: white;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow:
+            rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        transition: margin 100ms linear;
+        overflow-y: auto;
+    }
+    article svg {
+        width: 50px;
+        height: 50px;
     }
 
-    #question-elegirnos:hover {
-        background-color: blue;
-        color: white;
+    article h3 {
+        font-weight: bold;
+        font-size: 1.2rem;
     }
-    @media (max-width:640px) {
-        #elegirnos #container-concepts .line{
-            margin:0px 20px;
-           
+
+    article p {
+        font-size: 1rem;
+        text-wrap: pretty;
+    }
+
+    @media (min-width: 768px) {
+        section {
+            position: relative;
+            padding: 1em 0.5rem;
+            width: fit-content;
+            margin: auto;
         }
-        #elegirnos #container-concepts .title-why{
-            margin: 0;
+        .title-elegirnos {
+            border: none;
+            margin: auto 0 !important;
+        }
+
+        article p {
+            width: fit-content;
+        }
+
+        .lineme {
+            display: block;
+        }
+        .line {
+            display: block;
+        }
+        .circle{
+            margin-left: -22px;
+        }
+    }
+
+    @media (min-width:620px) {
+        section #caracteristicas{
+            grid-template-columns: repeat(2, 1fr) !important;
         }
     }
 </style>
-
-
-<section id="elegirnos" class=" flex flex-col">
-    <div id="question-elegirnos" class="w-fit h-fit mx-auto p-2   rounded  ">
-        <h2>¿Porque elegirnos?</h2>
-    </div>
-    <span class="line  border mx-auto"></span>
-    <hr class="line-div-concepts">
-    <div id="container-concepts" class="sm:flex gap-2">
-
-        <div class="flex flex-col">
-            <span class="line  border mx-auto"></span>
-            <span class="mx-auto title-why ">Precios</span>
-            <span class="line  border mx-auto"></span>
-            <p class="p-1 border rounded">Reprehenderit, cumque temporibus! Veritatis cupiditate minima nam facilis
-                iusto in reprehenderit harum fugit temporibus voluptas dolorum itaque voluptatem enim, doloremque
-                eligendi amet?</p>
-
-        </div>
-
-        <div class="flex flex-col">
-            <span class="line  border mx-auto"></span>
-            <span class="mx-auto title-why  ">Cotizáciones</span>
-            <span class="line  border mx-auto"></span>
-            <p class="p-1 border rounded">Reprehenderit, cumque temporibus! Veritatis cupiditate minima nam facilis
-                iusto in reprehenderit harum fugit temporibus voluptas dolorum itaque voluptatem enim, doloremque
-                eligendi amet?</p>
-
-        </div>
-
-        <div class="flex flex-col">
-            <span class="line   border mx-auto"></span>
-            <span class="mx-auto title-why  ">Calidad</span>
-            <span class="line border mx-auto"></span>
-            <p class="p-1 border rounded">Reprehenderit, cumque temporibus! Veritatis cupiditate minima nam facilis
-                iusto in reprehenderit harum fugit temporibus voluptas dolorum itaque voluptatem enim, doloremque
-                eligendi amet?</p>
-
-        </div>
-
-    </div>
-
-
-
-
-</section>
-
-<script>
-    const containerOpinion = document.getElementById("elegirnos")
-    const elementsToAnimate = [{ element: "div", isAll: false }]
-
-    function handleIntersectionObserver(entries, observer){
-        entries.forEach(entry => {
-            // Verificar si el elemento está intersectando (visible en la pantalla)
-            if (entry.isIntersecting) {
-                // elemento que interciono
-                const element = entry.target
-                element.style.backgroundColor = "blue"
-                element.style.color = "white"
-                observer.disconnect()
-            } 
-        });
-    }
-
-    elementsToAnimate.forEach(elementToAnimate => {
-        if (elementToAnimate.isAll) {
-            const elements = containerOpinion.querySelectorAll(elementToAnimate.element)
-            console.log("all element to animate",elements)
-            elements.forEach(element=>{
-                const observer = new IntersectionObserver(handleIntersectionObserver)
-                observer.observe(element)
-            })
-        } else {
-            const element = containerOpinion.querySelector(elementToAnimate.element)
-            const observer = new IntersectionObserver(handleIntersectionObserver)
-                observer.observe(element)
-
-        }
-    })
-
-
-</script>
