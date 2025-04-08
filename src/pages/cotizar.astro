@@ -1,6 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+import { COTIZACION_STEPS_TEXT } from "../constants/cotizarConstants";
 import ToogleInput from "../components/ToogleInput.astro";
+import LinkContact from "../components/LinkContact.astro";
+import Whatsapp from "../components/icons/Whatsapp.astro";
+import Correo from "../components/icons/Correo.astro";
+import Pdf from "../components/icons/Pdf.astro";
+
 ---
 
 <Layout title="Cotizar">
@@ -8,63 +15,23 @@ import ToogleInput from "../components/ToogleInput.astro";
         #seccion-cotizar {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 3rem;
         }
-        #seccion-cotizar .cotizar-title {
-            background-color: purple;
-            color: white;
-            position: relative;
-            font-size: 2rem;
+        #seccion-cotizar .cotizar-title-step {
+            font-size: 1.3rem;
+            min-height: 80px; /* evita que el elemento realize un salto cuandoi no tinene texto */
+            font-weight: bolder;
+            color: rgb(34, 14, 75);
             width: fit-content;
             text-align: center;
             margin: 0 auto;
-            margin-top: 3rem;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
-        @media (max-width: 480px) {
-            #seccion-cotizar .cotizar-title {
-                font-size: 0.8rem;
-                width: 80%;
-            }
-        }
-        @media (min-width: 480px) {
-            #seccion-cotizar .cotizar-title {
-                font-size: 1rem;
-            }
-        }
-        @media (min-width: 600px) {
-            #seccion-cotizar .cotizar-title {
-                font-size: 1.3rem;
-            }
-        }
+
         @media (min-width: 700px) {
-            #seccion-cotizar .cotizar-title {
-                font-size: 1.5rem;
+            #seccion-cotizar .cotizar-title-step {
+                font-size: 2rem;
             }
-        }
-        #seccion-cotizar .cotizar-title::before {
-            position: absolute;
-            content: "";
-            left: -10%;
-            z-index: -1;
-            width: 14%;
-            height: 100%;
-            background-color: purple;
-            clip-path: polygon(0 0, 100% 1%, 100% 100%, 0 99%, 31% 50%);
-            margin-top: 10px;
-        }
-        #seccion-cotizar .cotizar-title::after {
-            position: absolute;
-            content: "";
-            bottom: 0;
-            top: 0;
-            right: -10%;
-            z-index: -1;
-            width: 14%;
-            height: 100%;
-            background-color: purple;
-            clip-path: polygon(0% 0%, 100% 0, 69% 50%, 100% 100%, 0% 100%);
-            margin-top: 10px;
         }
 
         #seccion-cotizar #step-origen-destino select {
@@ -109,10 +76,6 @@ import ToogleInput from "../components/ToogleInput.astro";
             font-weight: 400;
             background-color: blue;
         }
-        @media (max-width: 390px) {
-            #seccion-cotizar .container-progress-bar .number-step {
-            }
-        }
 
         #seccion-cotizar .progress-bar {
             position: relative;
@@ -132,15 +95,22 @@ import ToogleInput from "../components/ToogleInput.astro";
         }
 
         #seccion-cotizar .container-control-buttons button {
+            transition: all 200ms linear;
             width: 100%;
             background-color: blue;
             padding: 0.5rem;
             color: white;
             text-transform: uppercase;
         }
+        #seccion-cotizar .container-control-buttons button:hover {
+            background-color: transparent;
+            color: black;
+            border: 1px solid black;
+        }
 
         #seccion-cotizar .container-control-buttons button:disabled {
             background-color: rgb(103, 103, 188);
+            color: white;
         }
 
         #cotizar-form {
@@ -151,10 +121,6 @@ import ToogleInput from "../components/ToogleInput.astro";
         #cotizar-form .step {
             transition: all 800ms linear;
             width: 100%;
-        }
-        #cotizar-form .step * {
-            margin-top: 10px;
-            margin-bottom: 10px;
         }
 
         #cotizar-form > *:not(:first-child) {
@@ -183,12 +149,14 @@ import ToogleInput from "../components/ToogleInput.astro";
 
         #step-origen-destino label {
             width: 48%;
+            font-weight: 500;
         }
 
         /* stylos para step de fecha de viaje */
         #step-date-travel h2 {
-            width: fit-content;
-            margin: auto;
+            width: 80%;
+            margin-left: 10%;
+            font-weight: 500;
         }
 
         #step-date-travel input {
@@ -199,43 +167,134 @@ import ToogleInput from "../components/ToogleInput.astro";
         }
 
         /* stylos para lista de articulos a transportar */
-        #step-article-list h2 {
-            /* width: fit-content; */
-            margin-left: 10%;
-        }
 
-        #article-list {
-            visibility: hidden;
-            width: 80%;
-            gap: 1rem;
+        #step-article-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        #container-list-articles {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            height: fit-content;
+            padding: 5px;
+            gap: 10px;
+        }
+        #container-list-articles .item-transport-container {
+            position: relative;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            height: fit-content;
+            width: 100%;
+            justify-content: center;
+            border-radius: 10px;
+            padding: 5px;
+            gap: 0.5rem;
+            background-color: white;
+        }
+        .container-list-articles .item-transport-container::before {
+            position: absolute;
+            content: "";
+            z-index: -1;
+            inset: 0;
+            background-color: blue;
+            width: calc(100% + 1px);
+            height: calc(100% + 1px);
+            border-radius: 10px;
             margin: auto;
-            text-align: center;
-            
+            margin-left: -0.5px;
+            filter: blur(1px);
         }
-        #article-list th,
-        td {
-            padding: 6px 4px;
+        .item-transport-container .button-menu {
+            display: flex;
+            background-color: #d7d0d0;
+            justify-content: center;
+            align-items: center;
+            width: 15%;
         }
-       
-        #article-list tbody tr:hover {
-            background-color: rgb(234, 237, 241);
-            border-radius: 5px;
-        }
-
-        #article-list button {
-            width: fit-content;
-            margin: auto;
-            background-color: red;
+        .item-transport-container .button-menu:hover {
+            background-color: #9f9898;
             color: white;
         }
-        #step-article-list div {
-            display: flex;
-            gap: 0.2rem;
+        .item-transport-container .info-item {
+            overflow: hidden;
+            position: relative;
+            width: 85%;
         }
-        #step-article-list #control-list-articles {
-            width: 80%;
+        .item-transport-container .info-item .info {
             display: flex;
-            margin: auto;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        .item-transport-container .info-item span {
+            width: fit-content;
+            padding: 5px;
+            font-size: 1.5rem;
+        }
+        .item-transport-container .info-item p {
+            font-weight: 300;
+        }
+        .item-transport-container .info-item .controles-item {
+            position: absolute;
+            gap: 0.2rem;
+            padding: 3px;
+            align-items: center;
+            justify-content: space-around;
+            inset: 0;
+            z-index: 60;
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            background-color: white;
+            display: none;
+        }
+        .item-transport-container .info-item .controles-item button {
+            width: 50%;
+            border-radius: 5px;
+
+            /* padding: 4px 10px; */
+        }
+
+        .item-transport-container-animation {
+            display: flex !important;
+            animation: animationtranslate ease-in-out 400ms 1 both;
+        }
+
+        .item-transport-container
+            .info-item
+            .controles-item
+            button:nth-child(1) {
+            background-color: #1e5f1e;
+            color: white;
+        }
+        .item-transport-container
+            .info-item
+            .controles-item
+            button:nth-child(2) {
+            background-color: #8d1f1f;
+            color: white;
+        }
+
+        @keyframes animationtranslate {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+        /* controll articles */
+        #step-article-list #control-list-articles {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         #step-article-list #control-list-articles input,
@@ -247,21 +306,42 @@ import ToogleInput from "../components/ToogleInput.astro";
         #step-article-list #input-cant-article {
             width: 20%;
         }
-        @media (max-width:420px) {
-            #step-article-list #control-list-articles{
-                width: 100%;
-            }
-            #step-article-list #input-name-article{
-                width: 70%;
-            }
-            
-        }
 
         #step-article-list #control-list-articles button {
+            background-color: #3aa856;
             color: white;
-            background-color: #4bb543;
-            font: bold;
-            border-radius: 0px 15px 15px 0px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 150px;
+            overflow: hidden; /* Oculta el contenido que se desborda */
+        }
+
+        #step-article-list #control-list-articles button > * {
+            flex: 1;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        #step-article-list #control-list-articles button:hover {
+            background-color: #34974d;
+        }
+
+        #step-article-list #control-list-articles button:hover > span {
+            flex: 0;
+            width: 0;
+        }
+
+        #step-article-list #control-list-articles button:hover svg {
+            flex: 1;
+            width: auto;
+        }
+
+        @media (min-width: 680px) {
+            .container-list-articles .item-transport-container {
+                width: 320px !important;
+            }
         }
         /* stylos para seleccionar servicios */
         #step-select-services h2 {
@@ -272,10 +352,66 @@ import ToogleInput from "../components/ToogleInput.astro";
             flex-wrap: wrap;
             gap: 1rem;
         }
+        #step-end-cotization{
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        #step-end-cotization h2{
+            color: white;
+            background: linear-gradient(115deg, #004ff9, #000000);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 2rem;
+        }
+        #step-end-cotization .container-details-cotization article{
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+        
+        #step-end-cotization .container-details-cotization h3{
+            font-weight: bold;
+        }
+        #step-end-cotization .container-details-cotization{
+            display: grid !important;
+            gap: 0.5rem;
+            grid-template-columns: repeat(2 , 1fr);
+        }
+        #step-end-cotization .container-details-cotization{
+            display: flex;
+        }
+        #step-end-cotization .send-cotization{
+            overflow: auto;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        #step-end-cotization .send-cotization svg{
+            width: 50px;
+        }
+        #step-end-cotization .send-cotization div{
+            min-height: calc(100% + 20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 5px;
+            box-shadow:
+            rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+            border-radius: 10px;
+        }
+        #step-end-cotization .send-cotization div:hover{
+            border: 1px solid black;
+        }
     </style>
     <section id="seccion-cotizar" class="">
-        <h1 class="cotizar-title">
-            Completa todos los pasos para realizar tu cotización!
+        <h1 id="cotizar-title-step" class="cotizar-title-step">
+            {COTIZACION_STEPS_TEXT.STEP_1}
         </h1>
         <div id="container-progress-bar" class="container-progress-bar">
             <div id="progress-bar" class="progress-bar">
@@ -347,26 +483,17 @@ import ToogleInput from "../components/ToogleInput.astro";
             <div id="step-date-travel" class="step flex-col">
                 <h2>Fecha del evento</h2>
                 <span id="error-date-travel" class="error"></span>
-                <input type="date" id="date-travel" class="border" />
+                <input  type="date" id="date-travel" class="border" />
             </div>
 
             <div id="step-article-list" class="step flex-col">
-                <h2>Agregue los articulos a transportar</h2>
-                <table
-                    id="article-list"
-                    class="w-full text-sm text-left rtl:text-right"
+                <div
+                    id="container-list-articles"
+                    class="container-list-articles"
                 >
-                    <thead
-                        class="text-xs uppercase bg-gray-50 dark:bg-gray-700"
-                    >
-                        <th>cant</th>
-                        <th>Nombre articulo</th>
-                        <th>Accion</th>
-                    </thead>
-                    <tbody> </tbody>
-                </table>
+                </div>
                 <span id="error-input-article" class="error"></span>
-                <div id="control-list-articles" class="flex justify-center">
+                <div id="control-list-articles" class="">
                     <input
                         id="input-cant-article"
                         value="1"
@@ -380,14 +507,32 @@ import ToogleInput from "../components/ToogleInput.astro";
                         type="text"
                         placeholder="ej:Nevera"
                     />
-                    <button id="btn-add-article" type="button" class="w-fit btn"
-                        >Agregar</button
+                    <button
+                        id="btn-add-article"
+                        type="button"
+                        class="w-fit btn"
                     >
+                        <span>Agregar</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-plus"
+                            ><path stroke="none" d="M0 0h24v24H0z" fill="none"
+                            ></path><path d="M12 5l0 14"></path><path
+                                d="M5 12l14 0"></path></svg
+                        >
+                    </button>
                 </div>
             </div>
 
             <div id="step-select-services" class="step flex-col">
-                <h2>selecciona tus servicios</h2>
                 <div id="container-services" class="container-services">
                     <ToogleInput
                         title="Peronal de cargue y arme"
@@ -404,9 +549,45 @@ import ToogleInput from "../components/ToogleInput.astro";
                 </div>
             </div>
 
-            <div class="step">
-                Final step pedir que seleccione por donde quiere enviar la
-                cotizacion
+            <div id="step-end-cotization" class="step">
+                <h2 >¡Tu cotizacion está lista!</h2>
+                <div class="container-details-cotization">
+                    <article>
+                        <h3>Detalles del viaje</h3>
+                        <span>Destino : San rafael</span>
+                        <span>Fecha de salida: 2023-05-10</span>
+                        <span>Fecha de regreso: 2023-05-17</span>
+                    </article>
+                    <article>
+                        <h3>Servicios Adquiridos</h3>
+                        <span>Cargue y descargue</span>
+                        <span>descargue y cargue</span>
+                        <span>Ayudantes</span>
+                        <span>Carretilla</span>
+                    </article>
+                    <article>
+                        <h3>Articulos a transportar</h3>
+                        <span>nevera</span>
+                        <span>Cortinas de humo</span>
+                        <span>Muebles</span>
+                        <span>Baldosas</span>
+                    </article>
+                </div>
+                <h3 class="text-2xl text-center">Elige que hacer con tu cotización</h3>
+                <article class="send-cotization">
+                    <div>
+                        <Whatsapp className="text-green-600"/>
+                        <span>Enviar por whatsapp</span>
+                    </div>
+                    <div>
+                        <Correo className="text-blue-600" />
+                        <span>Enviar por correo</span>
+                    </div>
+                    <div>
+                        <Pdf className="text-red-800"/>
+                        <span>Descargar en Pdf</span>
+                    </div>
+                </article>
             </div>
         </form>
 
@@ -416,7 +597,13 @@ import ToogleInput from "../components/ToogleInput.astro";
         </div>
     </section>
 
-    <script>
+    <script is:inline type="module">
+        import { createItemTransport, typeWriter } from "../../public/utils";
+        import { COTIZACION_STEPS_TEXT } from "../../src/constants/cotizarConstants";
+
+        // title step
+        const titleStep = document.getElementById("cotizar-title-step");
+
         // Control Form
         const formCotizar = document.getElementById("cotizar-form");
         const btnPrevStep = document.getElementById("btn-prev-step");
@@ -482,8 +669,8 @@ import ToogleInput from "../components/ToogleInput.astro";
             selectCiudadOrigen.appendChild(optionOrigin.cloneNode(true));
             selectCiudadDestino.appendChild(optionOrigin.cloneNode(true));
         }
-        async function handleChangeDepartment(event: Event) {
-            const target = event.target as HTMLSelectElement; // e target siempre sera el select en si
+        async function handleChangeDepartment(event) {
+            const target = event.target; // e target siempre sera el select en si
             const optionSelected = target.options[target.selectedIndex]; // recuperamos el option seleccionado
             const idDepartment = target.value;
             const result = await getCities(Number(idDepartment));
@@ -503,8 +690,8 @@ import ToogleInput from "../components/ToogleInput.astro";
                 renderCities(selectCiudadDestino, result.data);
             }
         }
-        function handleChangeCity(event: Event) {
-            const target = event.target as HTMLSelectElement;
+        function handleChangeCity(event) {
+            const target = event.target;
             if (target.id === "ciudad-origen") {
                 objectDestini.citi_origin = target.value;
             } else {
@@ -564,7 +751,7 @@ import ToogleInput from "../components/ToogleInput.astro";
             }
         }
         // para formatear el texto si contiene algun caracter especial
-        function encodeUri(text: string = "") {
+        function encodeUri(text = "") {
             return encodeURIComponent(text);
         }
         async function inicializarSteps() {
@@ -608,20 +795,22 @@ import ToogleInput from "../components/ToogleInput.astro";
         // END STEP DATE  TRAVEL
 
         // STEP ARTICLES LIST
-        const articleList = document.getElementById("article-list");
+        const containerArticleList = document.getElementById(
+            "container-list-articles",
+        );
         const inputCantArticle = document.getElementById("input-cant-article");
-        const inputArticle = document.getElementById("input-name-article");
-        const inputArticleMessagge = document.getElementById(
+        const inputTextArticle = document.getElementById("input-name-article");
+        const inputTextArticleMessagge = document.getElementById(
             "error-input-article",
         );
         const btnAddArticle = document.getElementById("btn-add-article");
         let listArticles = [];
         // funcion para verificar si hay articulos mostrar la tabla si no no
-        function showArticles(tableArticles) {
+        function showArticles() {
             if (listArticles.length > 0) {
-                tableArticles.style.visibility = "visible";
+                containerArticleList.style.visibility = "visible";
             } else {
-                tableArticles.style.visibility = "hidden";
+                containerArticleList.style.visibility = "hidden";
             }
         }
 
@@ -637,8 +826,9 @@ import ToogleInput from "../components/ToogleInput.astro";
             if (indexCurrentStep < totalSteps - 1 === false) return;
 
             // desabilitamos el boton para evitar fallos en los stylos  para que no colapsen si se le da muchos clips
-            btnNextStep.setAttribute("disabled", "true");
-            btnNextStep.textContent = "cargando...";
+
+            disabledElement(btnNextStep, true, "...cargando");
+            disabledElement(btnPrevStep, true);
 
             const currentStep = formCotizar.children[indexCurrentStep];
             const nexStep = formCotizar.children[indexCurrentStep + 1];
@@ -651,8 +841,8 @@ import ToogleInput from "../components/ToogleInput.astro";
                     nexStep.style.transform = "translate(0, 0)";
 
                     // volvemos a habilitar el boton
-                    btnNextStep.removeAttribute("disabled");
-                    btnNextStep.textContent = "siguiente";
+                    disabledElement(btnNextStep, false, "siguiente");
+                    disabledElement(btnPrevStep, false);
 
                     indexCurrentStep++;
                     logiSteps(indexCurrentStep);
@@ -676,6 +866,7 @@ import ToogleInput from "../components/ToogleInput.astro";
 
             // desabilitamos el boton para evitar fallos en los stylos  para que no colapsen si se le da muchos clips
             disabledElement(btnPrevStep, true, "cargando...");
+            disabledElement(btnNextStep, true);
 
             const previusStep = formCotizar.children[indexCurrentStep - 1];
             const currentStep = formCotizar.children[indexCurrentStep];
@@ -688,6 +879,7 @@ import ToogleInput from "../components/ToogleInput.astro";
                     previusStep.style.transform = "translate(0,0)";
                     // volvemos a habilitar el boton
                     disabledElement(btnPrevStep, false, "Anterior");
+                    disabledElement(btnNextStep, false);
 
                     indexCurrentStep--;
                     logiSteps(indexCurrentStep);
@@ -743,13 +935,16 @@ import ToogleInput from "../components/ToogleInput.astro";
         function logiSteps(stepCurrent) {
             switch (stepCurrent) {
                 case 0:
+                    typeWriter(titleStep, COTIZACION_STEPS_TEXT.STEP_1, 30);
                     disabledElement(btnPrevStep, true);
 
                     break;
                 case 1:
+                    typeWriter(titleStep, COTIZACION_STEPS_TEXT.STEP_2, 30);
                     disabledElement(btnPrevStep, false);
                     break;
                 case 2: // step date travel
+                    typeWriter(titleStep, COTIZACION_STEPS_TEXT.STEP_3, 30);
                     if (isErrorDateTravel) {
                         disabledElement(btnNextStep, true);
                     } else {
@@ -777,6 +972,7 @@ import ToogleInput from "../components/ToogleInput.astro";
                     break;
 
                 case 3:
+                    typeWriter(titleStep, COTIZACION_STEPS_TEXT.STEP_4, 30);
                     updateDisabledButtonsStepArticle();
                     inputCantArticle.removeEventListener(
                         "input",
@@ -812,78 +1008,64 @@ import ToogleInput from "../components/ToogleInput.astro";
                     function handleBtnAddArticle(event) {
                         event.preventDefault();
                         const cantArticle = inputCantArticle.value;
-                        const article = inputArticle.value;
+                        const textArticle = inputTextArticle.value;
                         if (!cantArticle) {
                             showError(
                                 "Por favor agregue una cantidad del articulo",
-                                inputArticleMessagge,
+                                inputTextArticleMessagge,
                             );
                             return;
                         }
-                        if (!article) {
+                        if (!textArticle) {
                             showError(
                                 "Por favor agregue un articulo",
-                                inputArticleMessagge,
+                                inputTextArticleMessagge,
                             );
                             return;
                         }
                         const idArticle = crypto.randomUUID();
                         const objetArticle = {
                             id: idArticle,
-                            article: article,
+                            cant_articel: cantArticle,
+                            text_article: textArticle,
                         };
-                        const trElement = document.createElement("tr");
-                        for (let i = 1; i <= 3; i++) {
-                            const tdElement = document.createElement("td");
-
-                            // el primer td es cantidad del articulo. 2 nombre. tercero accion
-                            if (i == 1) {
-                                tdElement.textContent = inputCantArticle.value;
-                                trElement.appendChild(tdElement);
-                                continue;
-                            }
-                            if (i == 2) {
-                                tdElement.textContent = inputArticle.value;
-                                trElement.appendChild(tdElement);
-                                continue;
-                            }
-                            // acciones
-                            const btnDeleteArticle =
-                                document.createElement("button");
-                            btnDeleteArticle.textContent = "Eliminar";
-                            btnDeleteArticle.addEventListener(
-                                "click",
-                                (event) => {
-                                    event.preventDefault();
-                                    event.target.parentNode.parentNode.remove();
-                                    listArticles = listArticles.filter(
-                                        (article) => article.id !== idArticle,
-                                    );
-                                    showArticles(articleList);
-                                    updateDisabledButtonsStepArticle();
-                                },
-                                { once: true },
+                        const onDeleteItem = () => {
+                            document.getElementById(idArticle).remove();
+                            listArticles = listArticles.filter(
+                                (article) => article.id !== idArticle,
                             );
+                            showArticles(listArticles);
 
-                            tdElement.appendChild(btnDeleteArticle);
-                            trElement.appendChild(tdElement);
-                        }
-
-                        articleList
-                            .querySelector("tbody")
-                            .appendChild(trElement);
+                            updateDisabledButtonsStepArticle();
+                        };
+                        const onEditItem = (event) => {
+                            inputCantArticle.value = cantArticle;
+                            inputTextArticle.value = textArticle;
+                            inputTextArticle.focus();
+                            onDeleteItem();
+                        };
+                        const newArticle = createItemTransport(
+                            idArticle,
+                            cantArticle,
+                            textArticle,
+                            onDeleteItem,
+                            onEditItem,
+                        );
+                        containerArticleList.appendChild(newArticle);
+                        // acciones
 
                         // limpiamos el input del article
-                        inputArticle.value = "";
+                        inputTextArticle.value = "";
                         // agregamos el nuevo article al aray de articles
                         listArticles.push(objetArticle);
-                        showArticles(articleList);
+                        showArticles(containerArticleList);
                         updateDisabledButtonsStepArticle();
                     }
 
                     break;
 
                 case 4: //step services
+                    typeWriter(titleStep, COTIZACION_STEPS_TEXT.STEP_5, 30);
                     containerServices.removeEventListener(
                         "click",
                         handleContainerServices,
@@ -901,7 +1083,6 @@ import ToogleInput from "../components/ToogleInput.astro";
                             event.target.tagName.toLowerCase() === "label"
                         ) {
                             //evitamos que le propague el evento al input que esta adentro o si no se ejecuta dos veces
-
                             newService =
                                 event.target.querySelector("input").name;
                         } else {
@@ -926,12 +1107,16 @@ import ToogleInput from "../components/ToogleInput.astro";
 
                     break;
                 case 5:
-                    location.href = `https://wa.me/573203442396?text=😀 ¡Hola! Quiero realizar una cotización para mi próximo transporte.%0A
-                    *Departamento Origen:* ${objectDestini.department_origin}%0A
-                    *Ciudad Origen:* ${objectDestini.citi_origin}%0A
-                    *Departamento Destino:* ${objectDestini.department_destini}%0A
-                    *Ciudad Destino:* ${objectDestini.citi_destini}`.split("%0A").join("");
- 
+                    typeWriter(titleStep, COTIZACION_STEPS_TEXT.STEP_6, 30);
+                    // location.href =
+                    //     `https://wa.me/573203442396?text=😀 ¡Hola! Quiero realizar una cotización para mi próximo transporte.%0A
+                    // *Departamento Origen:* ${objectDestini.department_origin}%0A
+                    // *Ciudad Origen:* ${objectDestini.citi_origin}%0A
+                    // *Departamento Destino:* ${objectDestini.department_destini}%0A
+                    // *Ciudad Destino:* ${objectDestini.citi_destini}`
+                    //         .split("%0A")
+                    //         .join("");
+
                     break;
                 default:
                     break;
