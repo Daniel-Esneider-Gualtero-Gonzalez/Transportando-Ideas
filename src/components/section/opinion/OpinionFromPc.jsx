@@ -9,7 +9,7 @@ function OpinionFromPc() {
                     {opinion.opinion}
                 </p>
                 <div className="flex gap-3">
-                    <img className="rounded-[10px] w-14" src={opinion.imagen} alt="" />
+                    <img className="rounded-[10px] w-14 h-14 my-auto" src={opinion.imagen} alt="" />
                     <div className="flex flex-col gap-2 ">
                         <span className="text-blue-600 font-bold">{opinion.nombre}</span>
                         <span className="font-semibold">{opinion.cargo}</span>
