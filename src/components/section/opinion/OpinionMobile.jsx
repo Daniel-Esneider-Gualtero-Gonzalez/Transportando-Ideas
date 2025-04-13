@@ -54,7 +54,7 @@ const activarAnimacion = ()=> setAnimacion(!animacion   )
             <div className=" flex flex-col gap-3">
                 <div className="shadow-[inset_-12px_-8px_40px_#46464620] w-fit p-2 rounded-[10px]">
                     <h3 className="font-bold text-blue-600">{OPINIONES_CLIENTES[opinionActual].nombre}</h3>
-                    <span className="font-semibold">{OPINIONES_CLIENTES[opinionActual].cargo}</span>
+                    <span className="font-semibold text-sm">{OPINIONES_CLIENTES[opinionActual].cargo}</span>
                 </div>
                 <p className=" text-xl relative shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] p-2 rounded-[10px]">
                     {OPINIONES_CLIENTES[opinionActual].opinion}
