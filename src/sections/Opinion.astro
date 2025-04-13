@@ -1,5 +1,6 @@
 ---
-import OpinionMobile from "../components/section/opinion/OpinionMobile.astro";
+import OpinionMobile from "../components/section/opinion/OpinionMobile";
+import OpinionFromPc from "../components/section/opinion/OpinionFromPc";
 ---
 
 <section id="section-opinion" class="flex flex-col gap-4 md:gap-6">
@@ -11,7 +12,12 @@ import OpinionMobile from "../components/section/opinion/OpinionMobile.astro";
         Gracias a estas continuamos mejorando la calidad de nuestros servicios
     </p>
 
-    <OpinionMobile />
+    <div class="md:hidden">
+        <OpinionMobile  />
+    </div>
+    <div class="hidden md:flex">
+        <OpinionFromPc />
+    </div>
 </section>
 
 <style is:global>
@@ -19,64 +25,7 @@ import OpinionMobile from "../components/section/opinion/OpinionMobile.astro";
         position: relative;
         overflow: hidden;
     }
-    section .start {
-        visibility: hidden;
-        clip-path: polygon(
-            50% 0%,
-            61% 35%,
-            98% 35%,
-            68% 57%,
-            79% 91%,
-            50% 70%,
-            21% 91%,
-            32% 57%,
-            2% 35%,
-            39% 35%
-        );
-        position: absolute;
-        z-index: -10;
-        width: 50px;
-        height: 50px;
-        background-color: rgb(88, 88, 12);
-        border-radius: 100%;
-        animation: moveStarts 8s ease-in-out  both  ;
-    }
-   
-    @keyframes moveStarts {
-        0%{ transform: translateX(0%) translateY(0%); opacity:0 }
-        100%{ transform: translateX(153%) translateY(400%); opacity: 0.2}
-    }
-    @media (min-width:600px) {
-        section .start{
-            visibility: visible;
-        }
-    }
+    
+    
 </style>
 
-<script>
-    const containerSection = document.querySelector("#section-opinion");
-
-    const cantEstrellas = 50;
-    const listFragments = [];
-    animationStarts()
-    
-
-    function animationStarts() {
-        const fragment = document.createDocumentFragment();
-        for (let index = 1; index <= cantEstrellas; index++) {
-            const posicionButtonEstrella = Math.floor(Math.random() * 130);
-            const posicionLeftEstrella = Math.floor(Math.random() * 130);
-            const spanEstrella = document.createElement("span");
-            spanEstrella.classList.add("start");
-            spanEstrella.style.bottom = posicionButtonEstrella + "%";
-            spanEstrella.style.left = posicionLeftEstrella + "%";
-        
-            fragment.appendChild(spanEstrella);
-            listFragments.push(spanEstrella)
-        }
-        
-        containerSection.appendChild(fragment);
-    }
-
-   
-</script>
