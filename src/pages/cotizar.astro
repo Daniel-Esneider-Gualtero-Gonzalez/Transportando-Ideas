@@ -6,7 +6,6 @@ import ToogleInput from "../components/ToogleInput.astro";
 import Whatsapp from "../components/icons/Whatsapp.astro";
 import Correo from "../components/icons/Correo.astro";
 import Pdf from "../components/icons/Pdf.astro";
-
 ---
 
 <Layout title="Cotizar">
@@ -97,6 +96,7 @@ import Pdf from "../components/icons/Pdf.astro";
             transition: all 200ms linear;
             width: 100%;
             background-color: blue;
+            border: 1px solid transparent;
             padding: 0.5rem;
             color: white;
             text-transform: uppercase;
@@ -104,7 +104,7 @@ import Pdf from "../components/icons/Pdf.astro";
         #seccion-cotizar .container-control-buttons button:hover {
             background-color: transparent;
             color: black;
-            border: 1px solid black;
+            border-color: black;
         }
 
         #seccion-cotizar .container-control-buttons button:disabled {
@@ -195,20 +195,9 @@ import Pdf from "../components/icons/Pdf.astro";
             padding: 5px;
             gap: 0.5rem;
             background-color: white;
+            box-shadow: inset -12px -8px 40px rgba(70, 70, 70, 0.125);
         }
-        .container-list-articles .item-transport-container::before {
-            position: absolute;
-            content: "";
-            z-index: -1;
-            inset: 0;
-            background-color: blue;
-            width: calc(100% + 1px);
-            height: calc(100% + 1px);
-            border-radius: 10px;
-            margin: auto;
-            margin-left: -0.5px;
-            filter: blur(1px);
-        }
+
         .item-transport-container .button-menu {
             display: flex;
             background-color: #d7d0d0;
@@ -236,7 +225,7 @@ import Pdf from "../components/icons/Pdf.astro";
             font-size: 1.5rem;
         }
         .item-transport-container .info-item p {
-            font-weight: 300;
+            font-weight: 600;
         }
         .item-transport-container .info-item .controles-item {
             position: absolute;
@@ -255,8 +244,6 @@ import Pdf from "../components/icons/Pdf.astro";
         .item-transport-container .info-item .controles-item button {
             width: 50%;
             border-radius: 5px;
-
-            /* padding: 4px 10px; */
         }
 
         .item-transport-container-animation {
@@ -351,37 +338,97 @@ import Pdf from "../components/icons/Pdf.astro";
             flex-wrap: wrap;
             gap: 1rem;
         }
-        #step-end-cotization{
+        #step-end-cotization {
             flex-direction: column;
             gap: 0.5rem;
         }
-        #step-end-cotization h2{
-            color: white;
-            background: linear-gradient(115deg, #004ff9, #000000);
+        #step-end-cotization h2 {
+            font-weight: bold;
             padding: 10px;
             border-radius: 10px;
             font-size: 2rem;
         }
-        #step-end-cotization .container-details-cotization article{
+        #step-end-cotization .container-details-cotization article {
             display: flex;
             flex-direction: column;
             padding: 5px;
-            border: 1px solid gray;
             border-radius: 10px;
+            box-shadow:
+                0px 0px 0px 1px rgb(0 0 0 / 0.06),
+                0px 1px 1px -0.5px rgb(0 0 0 / 0.06),
+                0px 3px 3px -1.5px rgb(0 0 0 / 0.06),
+                0px 6px 6px -3px rgb(0 0 0 / 0.06),
+                0px 12px 12px -6px rgb(0 0 0 / 0.06),
+                0px 24px 24px -12px rgb(0 0 0 / 0.06);
         }
-        
-        #step-end-cotization .container-details-cotization h3{
+
+        #step-end-cotization .container-details-cotization article h3 {
             font-weight: bold;
+            color: blue;
+            font-size: 1.1rem;
         }
-        #step-end-cotization .container-details-cotization{
+        #step-end-cotization .container-details-cotization {
             display: grid !important;
             gap: 0.5rem;
-            grid-template-columns: repeat(2 , 1fr);
         }
-        #step-end-cotization .container-details-cotization{
+        @media (min-width: 680px) {
+            #step-end-cotization .container-details-cotization {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        #step-end-cotization
+            .container-details-cotization
+            article
+            #detalles-viaje
+            div {
             display: flex;
+            text-transform: capitalize;
         }
-        #step-end-cotization .send-cotization{
+        #step-end-cotization
+            .container-details-cotization
+            article
+            #detalles-viaje
+            div
+            span:first-child {
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        #step-end-cotization
+            .container-details-cotization
+            article
+            #articulos-finales,
+        #servicios-adquiridos {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        #step-end-cotization
+            .container-details-cotization
+            article
+            #articulos-finales
+            div {
+            display: flex;
+            width: fit-content;
+            gap: 0.5rem;
+            padding: 7px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        #step-end-cotization
+            .container-details-cotization
+            article
+            #servicios-adquiridos
+            span {
+            display: flex;
+            text-transform: capitalize;
+            width: fit-content;
+            gap: 0.5rem;
+            padding: 7px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+
+        #step-end-cotization .send-cotization {
             overflow: auto;
             display: flex;
             padding: 5px;
@@ -390,10 +437,10 @@ import Pdf from "../components/icons/Pdf.astro";
             align-items: center;
             flex-wrap: wrap;
         }
-        #step-end-cotization .send-cotization svg{
+        #step-end-cotization .send-cotization svg {
             width: 50px;
         }
-        #step-end-cotization .send-cotization div{
+        #step-end-cotization .send-cotization div {
             min-height: calc(100% + 20px);
             display: flex;
             flex-direction: column;
@@ -401,12 +448,14 @@ import Pdf from "../components/icons/Pdf.astro";
             gap: 0.5rem;
             padding: 5px;
             box-shadow:
-            rgba(0, 0, 0, 0.16) 0px 3px 6px,
-            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                rgba(0, 0, 0, 0.16) 0px 3px 6px,
+                rgba(0, 0, 0, 0.23) 0px 3px 6px;
+            border: 1px solid transparent;
             border-radius: 10px;
         }
-        #step-end-cotization .send-cotization div:hover{
-            border: 1px solid black;
+
+        #step-end-cotization .send-cotization div:hover {
+            border: 1px solid blue;
         }
     </style>
     <section id="seccion-cotizar" class="">
@@ -483,7 +532,7 @@ import Pdf from "../components/icons/Pdf.astro";
             <div id="step-date-travel" class="step flex-col">
                 <h2>Fecha del evento</h2>
                 <span id="error-date-travel" class="error"></span>
-                <input  type="date" id="date-travel" class="border" />
+                <input type="date" id="date-travel" class="border" />
             </div>
 
             <div id="step-article-list" class="step flex-col">
@@ -535,48 +584,58 @@ import Pdf from "../components/icons/Pdf.astro";
             <div id="step-select-services" class="step flex-col">
                 <div id="container-services" class="container-services">
                     <ToogleInput
-                        title="Peronal de cargue y arme"
-                        name="personal-desarme-arme"
+                        title="Embalaje profesional"
+                        name="embalaje profesional"
                     />
                     <ToogleInput
-                        title="Desarme y Arme de estructuras"
-                        name="desarme y arme"
+                        title="Almacenamiento temporal"
+                        name="almacenamiento temporal"
                     />
                     <ToogleInput
-                        title="Desarme y Arme de estructuras"
-                        name="desarme y arme"
+                        title="Desmontaje de muebles"
+                        name="desmontaje muebles"
+                    />
+                    <ToogleInput
+                        title="Montaje y desmontaje de escenarios"
+                        name="montaje escenarios"
+                    />
+                    <ToogleInput
+                        title="Transporte de equipo audiovisual"
+                        name="transporte audiovisual"
+                    />
+                    <ToogleInput
+                        title="Logística para bodas/corporativos"
+                        name="logistica eventos"
                     />
                 </div>
             </div>
 
             <div id="step-end-cotization" class="step">
-                <h2 >¡Tu cotizacion está lista!</h2>
+                <h2>¡Tu cotizacion está lista!</h2>
                 <div class="container-details-cotization">
                     <article>
                         <h3>Detalles del viaje</h3>
-                        <span>Destino : San rafael</span>
-                        <span>Fecha de salida: 2023-05-10</span>
-                        <span>Fecha de regreso: 2023-05-17</span>
+                        <div id="detalles-viaje"></div>
                     </article>
                     <article>
                         <h3>Servicios Adquiridos</h3>
-                        <span>Cargue y descargue</span>
-                        <span>descargue y cargue</span>
-                        <span>Ayudantes</span>
-                        <span>Carretilla</span>
+                        <div id="servicios-adquiridos"></div>
                     </article>
                     <article>
                         <h3>Articulos a transportar</h3>
-                        <span>nevera</span>
-                        <span>Cortinas de humo</span>
-                        <span>Muebles</span>
-                        <span>Baldosas</span>
+                        <div id="articulos-finales"></div>
                     </article>
                 </div>
-                <h3 class="text-2xl text-center">Elige que hacer con tu cotización</h3>
+                <h3 class="text-2xl relative font-bold text-center my-7">
+                    Elige que hacer con tu cotización
+                    <span
+                        style={{ clipPath: "polygon(50% 100%, 0 0, 100% 0);" }}
+                        class="w-5 h-4 absolute bottom-[-15px] mx-auto left-0 right-0 bg-blue-600"
+                    ></span>
+                </h3>
                 <article class="send-cotization">
                     <div>
-                        <Whatsapp className="text-green-600"/>
+                        <Whatsapp className="text-green-600" />
                         <span>Enviar por whatsapp</span>
                     </div>
                     <div>
@@ -584,7 +643,7 @@ import Pdf from "../components/icons/Pdf.astro";
                         <span>Enviar por correo</span>
                     </div>
                     <div>
-                        <Pdf className="text-red-800"/>
+                        <Pdf className="text-red-800" />
                         <span>Descargar en Pdf</span>
                     </div>
                 </article>
@@ -631,10 +690,10 @@ import Pdf from "../components/icons/Pdf.astro";
 
         // STEP ORIGIN -  DESTINY
         const objectDestini = {
-            department_origin: "",
-            citi_origin: "",
-            department_destini: "",
-            citi_destini: "",
+            departamento_origen: "",
+            ciudad_origen: "",
+            departamento_destino: "",
+            ciudad_destino: "",
         };
         const selectDepartamentoOrigen = document.getElementById(
             "departamento-origen",
@@ -678,14 +737,14 @@ import Pdf from "../components/icons/Pdf.astro";
             //    renderizar en el select adecuado si es de origen o destino
             if (target.id === "departamento-origen") {
                 // cambiamos el departamneto origen y ciudad de acuerdo a la opcion seleccionada
-                objectDestini.department_origin = optionSelected.text;
-                objectDestini.citi_origin = result.data[0].name;
+                objectDestini.departamento_origen = optionSelected.text;
+                objectDestini.ciudad_origen = result.data[0].name;
                 console.log("object destini origin ", objectDestini);
                 cleanOptions(selectCiudadOrigen); // limpiamos las opciones de ciudades del departamento anterior
                 renderCities(selectCiudadOrigen, result.data);
             } else {
-                objectDestini.department_destini = optionSelected.text;
-                objectDestini.citi_destini = result.data[0].name;
+                objectDestini.departamento_destino = optionSelected.text;
+                objectDestini.ciudad_destino = result.data[0].name;
                 cleanOptions(selectCiudadDestino);
                 renderCities(selectCiudadDestino, result.data);
             }
@@ -693,9 +752,9 @@ import Pdf from "../components/icons/Pdf.astro";
         function handleChangeCity(event) {
             const target = event.target;
             if (target.id === "ciudad-origen") {
-                objectDestini.citi_origin = target.value;
+                objectDestini.ciudad_origen = target.value;
             } else {
-                objectDestini.citi_destini = target.value;
+                objectDestini.ciudad_destino = target.value;
             }
         }
         selectDepartamentoOrigen.addEventListener(
@@ -770,10 +829,10 @@ import Pdf from "../components/icons/Pdf.astro";
                 );
                 if (initialCities.error) return;
                 // iniciar el objectdestinis
-                objectDestini.department_origin = departments[0].name;
-                objectDestini.department_destini = departments[0].name;
-                objectDestini.citi_origin = initialCities.data[0].name;
-                objectDestini.citi_destini = initialCities.data[0].name;
+                objectDestini.departamento_origen = departments[0].name;
+                objectDestini.departamento_destino = departments[0].name;
+                objectDestini.ciudad_origen = initialCities.data[0].name;
+                objectDestini.ciudad_destino = initialCities.data[0].name;
                 console.log("object destini initial ", objectDestini);
                 renderCities(selectCiudadOrigen, initialCities.data);
                 renderCities(selectCiudadDestino, initialCities.data);
@@ -814,10 +873,60 @@ import Pdf from "../components/icons/Pdf.astro";
             }
         }
 
-        // Step List Serices
+        // Step List Services
         const containerServices = document.getElementById("container-services");
         let listServices = [];
         let countListener = 0; // contador de listener ya que se ejecuta dos veces por click y solo necesitamos una
+
+        // step end revisado y finalizacion de la cotizacion
+        function renderServiciosAdquiridos(element) {
+            const fragment = document.createDocumentFragment();
+            listServices.forEach((service) => {
+                const span = document.createElement("span");
+                span.textContent = service;
+                fragment.appendChild(span);
+            });
+            element.appendChild(fragment);
+        }
+        function renderArticulos(element) {
+            const fragment = document.createDocumentFragment();
+            listArticles.forEach((article) => {
+                const div = document.createElement("div");
+                const span = document.createElement("span");
+                const spanText = document.createElement("span");
+                span.textContent = article.cant_article;
+                div.appendChild(span);
+                spanText.textContent = article.text_article;
+                div.appendChild(spanText);
+                fragment.appendChild(div);
+            });
+            element.appendChild(fragment);
+        }
+        function renderDetallesViaje(element) {
+            const fragment = document.createDocumentFragment();
+            for (const key in objectDestini) {
+                if (Object.prototype.hasOwnProperty.call(objectDestini, key)) {
+                    const value = objectDestini[key];
+                    const div = document.createElement("div");
+                    const spanTitle = document.createElement("span");
+                    spanTitle.textContent = key.replace(/_/g, " ") + " :";
+                    div.appendChild(spanTitle);
+                    const spanText = document.createElement("span");
+                    spanText.textContent = value;
+                    div.appendChild(spanText);
+                    fragment.appendChild(div);
+                }
+            }
+            const div = document.createElement("div");
+            const spanTitle = document.createElement("span");
+            spanTitle.textContent = "Fecha de viaje :";
+            div.appendChild(spanTitle);
+            const spanText = document.createElement("span");
+            spanText.textContent = dateTravel.value;
+            div.appendChild(spanText);
+            fragment.appendChild(div);
+            element.appendChild(fragment);
+        }
 
         // logig next step
 
@@ -1026,7 +1135,7 @@ import Pdf from "../components/icons/Pdf.astro";
                         const idArticle = crypto.randomUUID();
                         const objetArticle = {
                             id: idArticle,
-                            cant_articel: cantArticle,
+                            cant_article: cantArticle,
                             text_article: textArticle,
                         };
                         const onDeleteItem = () => {
@@ -1108,12 +1217,22 @@ import Pdf from "../components/icons/Pdf.astro";
                     break;
                 case 5:
                     typeWriter(titleStep, COTIZACION_STEPS_TEXT.STEP_6, 30);
+                    const containerDetallesViaje =
+                        document.getElementById("detalles-viaje");
+                    const containerServiciosAdquiridos =
+                        document.getElementById("servicios-adquiridos");
+                    const containerArticulosFinales =
+                        document.getElementById("articulos-finales");
+                    renderDetallesViaje(containerDetallesViaje);
+                    renderArticulos(containerArticulosFinales);
+                    renderServiciosAdquiridos(containerServiciosAdquiridos);
+
                     // location.href =
                     //     `https://wa.me/573203442396?text=😀 ¡Hola! Quiero realizar una cotización para mi próximo transporte.%0A
-                    // *Departamento Origen:* ${objectDestini.department_origin}%0A
-                    // *Ciudad Origen:* ${objectDestini.citi_origin}%0A
-                    // *Departamento Destino:* ${objectDestini.department_destini}%0A
-                    // *Ciudad Destino:* ${objectDestini.citi_destini}`
+                    // *Departamento Origen:* ${objectDestini.departamento_origen}%0A
+                    // *Ciudad Origen:* ${objectDestini.ciudad_origen}%0A
+                    // *Departamento Destino:* ${objectDestini.departamento_destino}%0A
+                    // *Ciudad Destino:* ${objectDestini.ciudad_destino}`
                     //         .split("%0A")
                     //         .join("");
 
